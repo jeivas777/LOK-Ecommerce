@@ -1,0 +1,12 @@
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+  margin-bottom: 0;
+  font-family: sans-serif;
+}
+
+.pagination-container .page-item .page-link {
+  font-size: 14px;
+  color: #333333;
+}
