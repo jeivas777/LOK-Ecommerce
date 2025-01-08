@@ -1,14 +1,14 @@
 <header class="header">
-  <div class="logo-container">
+  <div class="logo-container" [routerLink]="'/home'">
     <img src="lok-high-resolution-logo-transparent.png" alt="Logo" />
   </div>
   <div class="navigation-itens-container">
     <ul>
       <li class="navigation-item">
-        <a href="">HOME</a>
+        <a [routerLink]="'/home'">HOME</a>
       </li>
       <li class="navigation-item">
-        <a href="">LOOKBOOK</a>
+        <a [routerLink]="'/product'">LOOKBOOK</a>
       </li>
       <li class="navigation-item">
         <a href="">CONTATO</a>

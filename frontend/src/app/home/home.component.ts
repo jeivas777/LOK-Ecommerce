@@ -6,12 +6,7 @@ import { ContentItensComponent } from './content-itens/content-itens.component';
 
 @Component({
   selector: 'app-home',
-  imports: [
-    HeaderComponent,
-    ContentItensComponent,
-    PaginatorComponent,
-    FooterComponent,
-  ],
+  imports: [ContentItensComponent, PaginatorComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
