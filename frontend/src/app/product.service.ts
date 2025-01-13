@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-interface Product {
+export interface Product {
   _id: String;
   name: String;
   description: String;
@@ -22,5 +22,9 @@ export class ProductService {
 
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.productsEndpoint);
+  }
+
+  addProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.productsEndpoint, product);
   }
 }

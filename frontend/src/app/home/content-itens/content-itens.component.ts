@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ContentItemComponent } from './content-item/content-item.component';
-import { ProductService } from '../../product.service';
+import { ProductService, Product } from '../../product.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-content-itens',
-  imports: [ContentItemComponent],
+  imports: [ContentItemComponent, CommonModule],
   templateUrl: './content-itens.component.html',
   styleUrl: './content-itens.component.scss',
 })
 export class ContentItensComponent implements OnInit {
-  products: any[] = [];
+  products: Product[] = [];
 
   constructor(private productService: ProductService) {}
 

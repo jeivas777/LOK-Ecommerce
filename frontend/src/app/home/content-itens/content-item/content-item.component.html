@@ -1,9 +1,13 @@
 <div class="product-box">
   <a [routerLink]="['/product']">
-    <img class="product-image" src="/product-image.png" alt="" />
+    <img class="product-image" src="{{ product.image }}" alt="" />
   </a>
   <div class="product-info">
-    <a [routerLink]="['/product']" class="product-name">Atomic Tee</a>
-    <a [routerLink]="['/product']" class="product-price">R$ 219,00</a>
+    <a [routerLink]="['/product/:{{product.name}}']" class="product-name">{{
+      product.name
+    }}</a>
+    <a [routerLink]="['/product/:{{product.name}}']" class="product-price"
+      >R$ {{ product.price }}</a
+    >
   </div>
 </div>
