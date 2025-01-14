@@ -1,7 +1,15 @@
 <div class="main-content-container">
-  <!-- Passar como parâmetro as informações do produto -->
-  <app-content-item
-    *ngFor="let product of products"
-    [product]="product"
-  ></app-content-item>
+  <div class="product-box" *ngFor="let product of products">
+    <a [routerLink]="['/', formatName(product.name), product._id]">
+      <img class="product-image" src="{{ product.image }}" alt="" />
+    </a>
+    <div class="product-info">
+      <a [routerLink]="['/', formatName(product.name), product._id]" class="product-name">{{
+        product.name
+      }}</a>
+      <a [routerLink]="['/', formatName(product.name), product._id]" class="product-price"
+        >{{formatPrice(product.price)}}</a
+      >
+    </div>
+  </div>
 </div>

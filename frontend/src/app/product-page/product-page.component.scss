@@ -1,9 +1,8 @@
 .product-container {
   display: grid;
   grid-template-columns: 6fr 6fr;
-  width: 100%;
-  padding-left: 50px;
-  padding-right: 50px;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .product-image {
@@ -54,7 +53,7 @@ p {
 }
 
 .info-container {
-  width: 60%;
+  width: 45%;
   margin: 0 auto;
 }
 

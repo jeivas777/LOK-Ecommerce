@@ -3,13 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Product {
-  _id: String;
-  name: String;
-  description: String;
-  price: Number;
-  image: String;
-  category: String;
-  stock: Number;
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  category: string;
+  stock: number;
 }
 
 @Injectable({
@@ -26,5 +26,15 @@ export class ProductService {
 
   addProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(this.productsEndpoint, product);
+  }
+
+  getProduct(productId : string): Observable<Product>{
+    const idEndpoint : string = this.productsEndpoint+"/"+productId;
+    console.log(idEndpoint)
+    return this.http.get<Product>(idEndpoint);
+  }
+
+  formatPrice(price:number):string {
+    return "R$ " + price.toString().replace(".", ",")
   }
 }

@@ -1,11 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ProductService , Product} from '../product.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-page',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.scss'
 })
-export class ProductPageComponent {
+export class ProductPageComponent implements OnInit {
+  product : Product | null = null;
 
+  constructor(
+    private route: ActivatedRoute,
+    private productService : ProductService
+  ){}
+
+  ngOnInit(): void {
+    const productId = this.route.snapshot.paramMap.get('id');
+    if(productId){
+      this.productService.getProduct(productId).subscribe((product) => {
+       this.product = product
+      })
+    }
+  }
+
+  formatPrice(price:number):string {
+    return this.productService.formatPrice(price);
+  }
 }

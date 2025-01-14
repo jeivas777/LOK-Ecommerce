@@ -1,4 +1,4 @@
-<div class="product-container">
+<div class="product-container" *ngIf="product">
   <div class="product-image">
     <div id="carouselExampleIndicators" class="carousel slide">
       <div class="carousel-indicators">
@@ -25,20 +25,20 @@
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="/product-image.png" class="d-block w-100" alt="" />
+          <img src={{product.image}} class="d-block w-100" alt="" />
         </div>
         <div class="carousel-item">
           <img
-            src="/product-image.png"
+            src={{product.image}}
             class="d-block w-100"
-            alt="/product-image.png"
+            alt={{product.image}}
           />
         </div>
         <div class="carousel-item">
           <img
-            src="/product-image.png"
+            src={{product.image}}
             class="d-block w-100"
-            alt="/product-image.png"
+            alt={{product.image}}
           />
         </div>
       </div>
@@ -78,8 +78,8 @@
   </div>
   <div class="product-info">
     <div class="info-container">
-      <h1>Atomic Tee</h1>
-      <p>R$219,00</p>
+      <h1>{{product.name}}</h1>
+      <p>{{formatPrice(product.price)}}</p>
       <p class="info">
         Confeccionada em Suedine Branco 100% algodão 240GSM (alta gramatura) na
         modelagem CIENA, nossa t-shirt conta com estampa frontal e traseira em
