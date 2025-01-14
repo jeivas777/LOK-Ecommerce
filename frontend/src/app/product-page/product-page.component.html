@@ -1,47 +1,35 @@
 <div class="product-container" *ngIf="product">
   <div class="product-image">
     <div id="carouselExampleIndicators" class="carousel slide">
+      <!-- Indicadores do Carrossel -->
       <div class="carousel-indicators">
         <button
+          *ngFor="let image of product.otherImages; let i = index"
           type="button"
           data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="0"
-          class="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="2"
-          aria-label="Slide 3"
+          [attr.data-bs-slide-to]="i"
+          [class.active]="i === 0"
+          [attr.aria-current]="i === 0 ? 'true' : null"
+          [attr.aria-label]="'Slide ' + (i + 1)"
         ></button>
       </div>
+
+      <!-- Conteúdo do Carrossel -->
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src={{product.image}} class="d-block w-100" alt="" />
-        </div>
-        <div class="carousel-item">
+        <div
+          *ngFor="let image of product.otherImages; let i = index"
+          class="carousel-item"
+          [class.active]="i === 0"
+        >
           <img
-            src={{product.image}}
-            class="d-block w-100"
-            alt={{product.image}}
-          />
-        </div>
-        <div class="carousel-item">
-          <img
-            src={{product.image}}
-            class="d-block w-100"
-            alt={{product.image}}
+            [src]="image"
+            class="d-block w-100 carousel-image"
+            [alt]="'Product image ' + (i + 1)"
           />
         </div>
       </div>
+
+      <!-- Controle de Navegação Anterior -->
       <button
         class="carousel-control-prev"
         type="button"
@@ -58,6 +46,8 @@
           <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z" />
         </svg>
       </button>
+
+      <!-- Controle de Navegação Próximo -->
       <button
         class="carousel-control-next"
         type="button"
@@ -76,16 +66,19 @@
       </button>
     </div>
   </div>
+
   <div class="product-info">
     <div class="info-container">
-      <h1>{{product.name}}</h1>
-      <p>{{formatPrice(product.price)}}</p>
+      <h1>{{ product.name }}</h1>
+      <p>{{ formatPrice(product.price) }}</p>
       <p class="info">
         Confeccionada em Suedine Branco 100% algodão 240GSM (alta gramatura) na
         modelagem CIENA, nossa t-shirt conta com estampa frontal e traseira em
         Silk. <br /><br />Considere um encolhimento natural de 5%, consulte a
         tabela de medidas.
       </p>
+
+      <!-- Selector de Tamanhos -->
       <div class="size-selector-container">
         <label for="form-select size-label">Size:</label>
         <select
@@ -96,17 +89,21 @@
           <option value="1">P</option>
           <option value="2">M</option>
           <option value="3">G</option>
-          <option value="3">GG</option>
+          <option value="4">GG</option>
         </select>
       </div>
+
+      <!-- Botão de Compra -->
       <div class="buy-container">
         <button type="button" class="btn-comprar">Comprar</button>
       </div>
+
+      <!-- Tabela de Tamanhos -->
       <div class="size-image-container">
         <img
           class="size-image"
           src="https://cdn.vnda.com.br/cienalab/2024/04/09/11_4_4_477_Camisetaciena.png?v=1723499211"
-          alt=""
+          alt="Tabela de tamanhos"
         />
       </div>
     </div>

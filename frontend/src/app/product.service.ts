@@ -10,6 +10,7 @@ export interface Product {
   image: string;
   category: string;
   stock: number;
+  otherImages: String[];
 }
 
 @Injectable({
@@ -28,13 +29,13 @@ export class ProductService {
     return this.http.post<Product>(this.productsEndpoint, product);
   }
 
-  getProduct(productId : string): Observable<Product>{
-    const idEndpoint : string = this.productsEndpoint+"/"+productId;
-    console.log(idEndpoint)
+  getProduct(productId: string): Observable<Product> {
+    const idEndpoint: string = this.productsEndpoint + '/' + productId;
+    console.log(idEndpoint);
     return this.http.get<Product>(idEndpoint);
   }
 
-  formatPrice(price:number):string {
-    return "R$ " + price.toString().replace(".", ",")
+  formatPrice(price: number): string {
+    return 'R$ ' + price.toString().replace('.', ',');
   }
 }

@@ -7,6 +7,7 @@ const productSchema = new mongoose.Schema({
   image: String,
   category: String,
   stock: Number,
+  otherImages: Array,
 });
 
 module.exports = mongoose.model("Product", productSchema);
