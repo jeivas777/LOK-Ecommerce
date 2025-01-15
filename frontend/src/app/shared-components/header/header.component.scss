@@ -78,14 +78,14 @@
 
   /* Manter os ícones de carrinho, perfil e pesquisar visíveis */
   .resources-container {
-    display: flex;  /* Não esconder ícones */
+    display: flex; /* Não esconder ícones */
   }
 
   .navigation-itens-container {
     position: absolute;
     top: 92px; /* Mesma altura do header */
     right: 0;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.78);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: none;
     flex-direction: column;
@@ -117,7 +117,6 @@
   }
 }
 
-
 .navigation-itens-container ul li a {
   position: relative;
   text-decoration: none;
@@ -125,7 +124,7 @@
 }
 
 .navigation-itens-container ul li a::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -138,4 +137,20 @@
 .navigation-itens-container ul li a:hover::before {
   width: 100%;
   left: 0;
+}
+
+.search-icon {
+  cursor: pointer;
+}
+
+.search-bar {
+  padding-left: 12px;
+  border: 1px solid #cccccc;
+  height: 32px;
+  background-color: rgba(255, 255, 255, 0.78);
+}
+
+.search-bar:focus {
+  border: 1px solid #cccccc;
+  outline: none;
 }

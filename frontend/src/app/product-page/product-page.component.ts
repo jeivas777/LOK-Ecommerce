@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ProductPageComponent implements OnInit {
   product: Product | null = null;
-  selectedImage : String = ""
+  selectedImage: String = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -23,16 +23,15 @@ export class ProductPageComponent implements OnInit {
     if (productId) {
       this.productService.getProduct(productId).subscribe((product) => {
         this.product = product;
-        this.selectedImage = this.product.image;
-        product.otherImages.forEach((element) => {
+        this.selectedImage = this.product.images[0];
+        product.images.forEach((element) => {
           console.log(element);
         });
-        console.log(this.product.otherImages);
       });
     }
   }
 
-  selectImage(imageUrl:String) {
+  selectImage(imageUrl: String) {
     this.selectedImage = imageUrl;
   }
 

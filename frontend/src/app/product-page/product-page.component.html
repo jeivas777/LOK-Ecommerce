@@ -8,9 +8,12 @@
     />
 
     <!-- Lista de Miniaturas -->
-    <div *ngIf="product.otherImages && product.otherImages.length > 0; else noImagesTemplate" class="thumbnail-container">
+    <div
+      *ngIf="product.images && product.images.length > 0; else noImagesTemplate"
+      class="thumbnail-container"
+    >
       <img
-        *ngFor="let image of product.otherImages"
+        *ngFor="let image of product.images"
         [src]="image"
         class="thumbnail"
         [class.active]="image === selectedImage"
@@ -20,16 +23,16 @@
     </div>
   </div>
 
-<ng-template #noImagesTemplate>
-  <div class="thumbnail-container">
-    <img
-      [src]="selectedImage"
-      class="thumbnail active"
-      alt="Thumbnail of product image"
-    />
-  </div>
-</ng-template>
-  
+  <ng-template #noImagesTemplate>
+    <div class="thumbnail-container">
+      <img
+        [src]="selectedImage"
+        class="thumbnail active"
+        alt="Thumbnail of product image"
+      />
+    </div>
+  </ng-template>
+
   <div class="product-info">
     <div class="info-container">
       <h1>{{ product.name }}</h1>

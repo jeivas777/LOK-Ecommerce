@@ -2,7 +2,13 @@
   <div class="product-box" *ngFor="let product of products">
     <div class="product-image-container">
       <a [routerLink]="['/', formatName(product.name), product._id]">
-        <img class="product-image" src="{{ product.image }}" alt="" />
+        <img
+          class="product-image"
+          [src]="currentImage[product._id] || product.images[0]"
+          alt=""
+          (mouseover)="updateCurrentImage(product._id, product.images[1])"
+          (mouseout)="updateCurrentImage(product._id, product.images[0])"
+        />
       </a>
     </div>
     <div class="product-info">

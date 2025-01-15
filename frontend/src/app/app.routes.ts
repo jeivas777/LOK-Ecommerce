@@ -7,4 +7,5 @@ export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: ':name/:id', component: ProductPageComponent },
+  { path: 'search?q/:query', redirectTo: 'searchResults' },
 ];

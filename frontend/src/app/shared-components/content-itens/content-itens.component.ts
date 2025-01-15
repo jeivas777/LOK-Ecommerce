@@ -11,7 +11,8 @@ import { RouterModule } from '@angular/router';
 })
 export class ContentItensComponent implements OnInit {
   products: Product[] = [];
-  formattedPrice : string | null = null;
+  formattedPrice: string | null = null;
+  currentImage: { [key: string]: string } = {};
 
   constructor(private productService: ProductService) {}
 
@@ -21,11 +22,15 @@ export class ContentItensComponent implements OnInit {
     });
   }
 
-  formatName(name: string):string {
-    return name.replace(/\s+/g, "-")
+  formatName(name: string): string {
+    return name.replace(/\s+/g, '-');
   }
 
-  formatPrice(price:number):string {
+  formatPrice(price: number): string {
     return this.productService.formatPrice(price);
+  }
+
+  updateCurrentImage(productId: string, newImage: string): void {
+    this.currentImage[productId] = newImage;
   }
 }

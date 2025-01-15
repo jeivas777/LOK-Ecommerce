@@ -56,3 +56,12 @@
   height: 75%;
   overflow: hidden;
 }
+
+.product-image {
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.product-image:hover {
+  filter: brightness(0.9); /* Escurece a imagem ao passar o mouse */
+  // transform: scale(1.05); /* Adiciona um leve zoom (opcional) */
+}
