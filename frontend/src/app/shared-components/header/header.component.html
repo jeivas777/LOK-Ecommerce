@@ -2,7 +2,24 @@
   <div class="logo-container" [routerLink]="'/home'">
     <img src="lok-high-resolution-logo-transparent.png" alt="Logo" />
   </div>
-  <div class="navigation-itens-container">
+
+  <!-- Botão do menu hamburguer -->
+  <div class="menu-toggle" (click)="toggleMenu()">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="24px"
+      viewBox="0 -960 960 960"
+      width="24px"
+      fill="#333333"
+    >
+      <path
+        d="M120-240v-60h720v60H120Zm0-180v-60h720v60H120Zm0-180v-60h720v60H120Z"
+      />
+    </svg>
+  </div>
+
+  <!-- Navbar com opções -->
+  <nav class="navigation-itens-container" [class.active]="menuOpen">
     <ul>
       <li class="navigation-item">
         <a [routerLink]="'/home'">HOME</a>
@@ -17,8 +34,10 @@
         <a href="">INSTAGRAM</a>
       </li>
     </ul>
-  </div>
+  </nav>
+
   <div class="resources-container">
+    <!-- Ícones de pesquisa, usuário e carrinho -->
     <svg
       xmlns="http://www.w3.org/2000/svg"
       height="24px"

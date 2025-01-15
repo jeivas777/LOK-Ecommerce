@@ -1,72 +1,35 @@
 <div class="product-container" *ngIf="product">
   <div class="product-image">
-    <div id="carouselExampleIndicators" class="carousel slide">
-      <!-- Indicadores do Carrossel -->
-      <div class="carousel-indicators">
-        <button
-          *ngFor="let image of product.otherImages; let i = index"
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          [attr.data-bs-slide-to]="i"
-          [class.active]="i === 0"
-          [attr.aria-current]="i === 0 ? 'true' : null"
-          [attr.aria-label]="'Slide ' + (i + 1)"
-        ></button>
-      </div>
+    <!-- Imagem Principal -->
+    <img
+      [src]="selectedImage"
+      class="d-block w-100 main-image"
+      alt="Main Product Image"
+    />
 
-      <!-- Conteúdo do Carrossel -->
-      <div class="carousel-inner">
-        <div
-          *ngFor="let image of product.otherImages; let i = index"
-          class="carousel-item"
-          [class.active]="i === 0"
-        >
-          <img
-            [src]="image"
-            class="d-block w-100 carousel-image"
-            [alt]="'Product image ' + (i + 1)"
-          />
-        </div>
-      </div>
-
-      <!-- Controle de Navegação Anterior -->
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="prev"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          height="24px"
-          viewBox="0 -960 960 960"
-          width="24px"
-          fill="#333333"
-        >
-          <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z" />
-        </svg>
-      </button>
-
-      <!-- Controle de Navegação Próximo -->
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="next"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          height="24px"
-          viewBox="0 -960 960 960"
-          width="24px"
-          fill="#333333"
-        >
-          <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z" />
-        </svg>
-      </button>
+    <!-- Lista de Miniaturas -->
+    <div *ngIf="product.otherImages && product.otherImages.length > 0; else noImagesTemplate" class="thumbnail-container">
+      <img
+        *ngFor="let image of product.otherImages"
+        [src]="image"
+        class="thumbnail"
+        [class.active]="image === selectedImage"
+        (click)="selectImage(image)"
+        [alt]="'Thumbnail of product image ' + image"
+      />
     </div>
   </div>
 
+<ng-template #noImagesTemplate>
+  <div class="thumbnail-container">
+    <img
+      [src]="selectedImage"
+      class="thumbnail active"
+      alt="Thumbnail of product image"
+    />
+  </div>
+</ng-template>
+  
   <div class="product-info">
     <div class="info-container">
       <h1>{{ product.name }}</h1>

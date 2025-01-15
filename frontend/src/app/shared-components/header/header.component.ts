@@ -7,4 +7,11 @@ import { RouterModule } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  menuOpen: boolean = false;
+
+toggleMenu(): void {
+  this.menuOpen = !this.menuOpen;
+}
+
+}

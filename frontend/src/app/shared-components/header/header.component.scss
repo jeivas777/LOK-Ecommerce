@@ -1,3 +1,4 @@
+/* Estilo base do header existente */
 .header {
   position: sticky;
   top: 0;
@@ -17,16 +18,6 @@
   z-index: 40;
 }
 
-.navigation-itens-container ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.navigation-itens-container ul li {
-  display: inline-block;
-  margin: 1.25em;
-}
-
 .logo-container {
   height: 50px;
   cursor: pointer;
@@ -37,35 +28,114 @@
   height: 100%;
 }
 
-.resources-container {
+/* Ajustes para os itens de navegação */
+.navigation-itens-container ul {
+  list-style-type: none;
+  padding: 0;
   display: flex;
-  gap: 1em;
+  gap: 1.25em;
+  margin: 0;
+}
+
+.navigation-itens-container ul li {
+  margin: 0;
 }
 
 .navigation-itens-container ul li a {
   position: relative;
-  display: inline-block;
   text-decoration: none;
   color: #333333;
   line-height: 24px;
+  font-weight: 700;
+  display: inline-block; /* Garante que a largura seja computada corretamente */
+  transition: color 0.3s ease;
 }
 
-.navigation-itens-container ul li a::after {
-  content: "";
+/* Ajustes para os ícones */
+.resources-container {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+
+/* Menu Toggle (Hamburguer) */
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  z-index: 50; /* Para que fique acima do restante do conteúdo */
+}
+
+/* Adaptação para telas menores */
+@media screen and (max-width: 768px) {
+  /* Mostrar menu hamburguer e esconder o menu padrão */
+  .menu-toggle {
+    display: flex;
+  }
+
+  /* Manter os ícones de carrinho, perfil e pesquisar visíveis */
+  .resources-container {
+    display: flex;  /* Não esconder ícones */
+  }
+
+  .navigation-itens-container {
+    position: absolute;
+    top: 92px; /* Mesma altura do header */
+    right: 0;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    padding: 16px 0;
+  }
+
+  .navigation-itens-container.active {
+    display: flex;
+    animation: slideDown 0.3s ease-out;
+  }
+
+  .navigation-itens-container ul {
+    flex-direction: column;
+    gap: 1.5em;
+    align-items: center;
+  }
+
+  /* Transição de menu */
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+
+.navigation-itens-container ul li a {
+  position: relative;
+  text-decoration: none;
+  color: #000; /* Cor do texto do link */
+}
+
+.navigation-itens-container ul li a::before {
+  content: '';
   position: absolute;
-  left: 50%;
   bottom: 0;
-  height: 2px;
-  background-color: black;
+  left: 50%;
   width: 0;
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
-  transform-origin: center;
+  height: 2px; /* Altura do sublinhado */
+  background-color: #000; /* Cor do sublinhado */
+  transition: width 0.3s ease, left 0.3s ease;
 }
 
-.navigation-itens-container ul li a:hover::after {
+.navigation-itens-container ul li a:hover::before {
   width: 100%;
   left: 0;
-  transform: translateX(0);
-  transform-origin: center;
 }

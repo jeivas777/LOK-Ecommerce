@@ -3,11 +3,13 @@
   grid-template-columns: 6fr 6fr;
   width: 90%;
   margin: 0 auto;
+  margin-top: 8px;
 }
 
 .product-image {
-  width: 80%;
-  margin: 0 auto;
+  max-width: 600px;
+  max-height: 600px;
+  margin-left: 25%;
 }
 
 h1 {
@@ -91,6 +93,12 @@ label {
   .product-image {
     display: flex;
     justify-content: center;
+    width: 70%;
+    margin:0;
+  }
+
+  .thumbnail-container{
+    margin-left: 8px;
   }
 }
 
@@ -140,11 +148,37 @@ label {
   border: 1px solid #cccccc;
 }
 
-.carousel-image {
-  margin: 0 auto;
-  width: 100%;
-  height: 100%;
-  max-width: 600px;
-  max-height: 600px;
+
+.product-image {
+  position: relative;
+  text-align: center;
+}
+
+.main-image {
   object-fit: cover;
+  margin-bottom: 8px;
+}
+
+.thumbnail-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.thumbnail {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.3s ease;
+}
+
+.thumbnail.active {
+  border-color: #333;
+}
+
+.thumbnail:hover {
+  border-color: #666;
 }
