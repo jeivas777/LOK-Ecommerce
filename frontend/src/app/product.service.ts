@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface Product {
   _id: string;
@@ -32,6 +32,12 @@ export class ProductService {
     const idEndpoint: string = this.productsEndpoint + '/' + productId;
     console.log(idEndpoint);
     return this.http.get<Product>(idEndpoint);
+  }
+
+  getProductByName(productName: string): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      this.productsEndpoint + '?name=' + productName
+    );
   }
 
   formatPrice(price: number): string {

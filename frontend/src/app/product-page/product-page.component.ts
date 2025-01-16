@@ -24,9 +24,6 @@ export class ProductPageComponent implements OnInit {
       this.productService.getProduct(productId).subscribe((product) => {
         this.product = product;
         this.selectedImage = this.product.images[0];
-        product.images.forEach((element) => {
-          console.log(element);
-        });
       });
     }
   }

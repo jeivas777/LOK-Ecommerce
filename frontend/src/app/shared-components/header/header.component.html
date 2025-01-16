@@ -38,7 +38,17 @@
 
   <div class="resources-container">
     <!-- Ícones de pesquisa, usuário e carrinho -->
-    <input class="search-bar" *ngIf="showSearchBar" type="text" name="" id="" />
+    <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+      <input
+        class="search-bar"
+        *ngIf="showSearchBar"
+        type="text"
+        name="search"
+        id=""
+        ngModel
+      />
+    </form>
+
     <svg
       class="search-icon"
       xmlns="http://www.w3.org/2000/svg"

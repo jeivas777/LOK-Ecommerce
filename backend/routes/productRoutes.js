@@ -5,8 +5,15 @@ const router = express.Router();
 // Listar todos os produtos
 router.get("/products", async (req, res) => {
   try {
-    const products = await Product.find();
-    res.json(products);
+    let query = {};
+
+    if (req.query.name) {
+      query.name = { $regex: req.query.name, $options: "i" };
+    }
+
+    const product = await Product.find(query);
+
+    res.json(product);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
