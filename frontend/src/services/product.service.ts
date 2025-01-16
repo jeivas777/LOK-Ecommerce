@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface Product {
   _id: string;
@@ -9,6 +9,7 @@ export interface Product {
   price: number;
   category: string;
   stock: number;
+  stockBySize: { [size: string]: number };
   images: string[];
 }
 
