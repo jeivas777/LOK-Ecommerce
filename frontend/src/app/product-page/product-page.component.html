@@ -50,18 +50,25 @@
         <select
           class="form-select size-droplist"
           aria-label="Default select example"
+          [(ngModel)]="selectedSize"
         >
-          <option selected>Selecione um tamanho</option>
-          <option value="1">P</option>
-          <option value="2">M</option>
-          <option value="3">G</option>
-          <option value="4">GG</option>
+          <option disabled selected>Selecione um tamanho</option>
+          <option value="P">P</option>
+          <option value="M">M</option>
+          <option value="G">G</option>
+          <option value="GG">GG</option>
         </select>
       </div>
 
       <!-- Botão de Compra -->
       <div class="buy-container">
-        <button type="button" class="btn-comprar">Comprar</button>
+        <button
+          type="button"
+          class="btn-comprar"
+          (click)="addToCart(selectedSize)"
+        >
+          Comprar
+        </button>
       </div>
 
       <!-- Tabela de Tamanhos -->

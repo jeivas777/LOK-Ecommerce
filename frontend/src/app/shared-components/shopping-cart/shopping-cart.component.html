@@ -1,0 +1,36 @@
+<div class="cart-background">
+  <div class="cart-container">
+    <div class="cart-header">
+      <h1 class="cart-text">Carrinho de compras</h1>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="24px"
+        viewBox="0 -960 960 960"
+        width="24px"
+        fill="#000000"
+        (click)="close()"
+      >
+        <path
+          d="m291-240-51-51 189-189-189-189 51-51 189 189 189-189 51 51-189 189 189 189-51 51-189-189-189 189Z"
+        />
+      </svg>
+    </div>
+    <div class="cart-main">
+      <div class="cart-item" *ngFor="let product of cartProducts">
+        <img
+          class="cart-item__image"
+          [src]="product.images[0]"
+          [alt]="product.name"
+        />
+
+        <div class="cart-item__details">
+          <h4 class="cart-item__name">{{ product.name }}</h4>
+          <p class="cart-item__price">{{ formatPrice(product.price) }}</p>
+          <p class="cart-item__size">Tamanho: {{ product.selectedSize }}</p>
+        </div>
+      </div>
+      <!-- <div class="cart-item" *ngFor="let item of list"></div> -->
+    </div>
+    <div class="cart-footer"></div>
+  </div>
+</div>

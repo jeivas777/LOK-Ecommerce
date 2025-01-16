@@ -9,6 +9,7 @@ export interface Product {
   price: number;
   category: string;
   stock: number;
+  stockBySize: { [size: string]: number };
   images: string[];
 }
 
