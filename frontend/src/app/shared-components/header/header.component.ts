@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ProductService } from '../../../services/product.service';
 import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
+import { ProductService } from '../../services/product.service';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +17,12 @@ export class HeaderComponent {
   showSearchBar: boolean = false;
   showCart: boolean = false;
 
+  constructor(
+    private router: Router,
+    private productService: ProductService,
+    private searchService: SearchService
+  ) {}
+
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
   }
@@ -26,5 +33,13 @@ export class HeaderComponent {
 
   toggleCart(): void {
     this.showCart = !this.showCart;
+  }
+
+  onSubmit(form: any): void {
+    const query = form.value.query;
+    this.searchService.setSearchQuery(query);
+    this.router.navigate(['/search'], {
+      queryParams: { q: query },
+    });
   }
 }

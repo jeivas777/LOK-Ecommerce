@@ -13,9 +13,12 @@ export class CartService {
   addToCart(product: any, selectedSize: String): void {
     const currentCart = this.cartProductsSubject.value;
 
-    product['selectedSize'] = selectedSize;
+    const productCopy = {
+      ...product,
+      selectedSize: selectedSize,
+    };
 
-    this.cartProductsSubject.next([...currentCart, product]);
+    this.cartProductsSubject.next([...currentCart, productCopy]);
   }
 
   getCartProducts(): any {

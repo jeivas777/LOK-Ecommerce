@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService, Product } from '../../../services/product.service';
+import { ProductService, Product } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-content-itens',
@@ -17,19 +18,27 @@ export class ContentItensComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
     this.query = this.route.snapshot.queryParamMap.get('q');
 
-    if (this.query) {
+    this.searchService.searchQuery$.subscribe((query) => {
+      this.query = query;
+      this.fetchProducts(); // Atualiza os produtos quando a pesquisa muda
+    });
+  }
+
+  fetchProducts(): void {
+    if (this.query && this.query.trim() !== '') {
       this.productService.getProductByName(this.query).subscribe((response) => {
-        this.products = response;
+        this.products = response; // Atualiza os produtos filtrados
       });
     } else {
       this.productService.getProducts().subscribe((products) => {
-        this.products = products;
+        this.products = products; // Carrega todos os produtos caso a pesquisa esteja vazia
       });
     }
   }

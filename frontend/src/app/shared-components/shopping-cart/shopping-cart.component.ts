@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CartService } from '../../../services/cart.service';
-import { Product } from '../../../services/product.service';
+import { CartService } from '../../services/cart.service';
+import { Product } from '../../services/product.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -18,7 +18,6 @@ export class ShoppingCartComponent implements OnInit {
   ngOnInit() {
     this.cartService.cartProducts$.subscribe((response) => {
       this.cartProducts = response;
-      console.log(this.cartProducts);
     });
   }
 
