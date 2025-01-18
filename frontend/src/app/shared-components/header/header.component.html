@@ -22,16 +22,16 @@
   <nav class="navigation-itens-container" [class.active]="menuOpen">
     <ul>
       <li class="navigation-item">
-        <a [routerLink]="'/home'">HOME</a>
+        <a [routerLink]="'/home'" (click)="toggleMenu()">HOME</a>
       </li>
       <li class="navigation-item">
-        <a [routerLink]="'/product'">LOOKBOOK</a>
+        <a href="" (click)="toggleMenu()">LOOKBOOK</a>
       </li>
       <li class="navigation-item">
-        <a href="">CONTATO</a>
+        <a href="" (click)="toggleMenu()">CONTATO</a>
       </li>
       <li class="navigation-item">
-        <a href="">INSTAGRAM</a>
+        <a href="" (click)="toggleMenu()">INSTAGRAM</a>
       </li>
     </ul>
   </nav>
@@ -92,10 +92,9 @@
         cartProductsQnt
       }}</span>
     </div>
-
-    <app-shopping-cart
-      *ngIf="showCart"
-      (closeCart)="toggleCart()"
-    ></app-shopping-cart>
   </div>
 </header>
+<app-shopping-cart
+  *ngIf="showCart"
+  (closeCart)="toggleCart()"
+></app-shopping-cart>

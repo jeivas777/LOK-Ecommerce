@@ -50,7 +50,7 @@
         </svg>
       </div>
     </div>
-    <div class="cart-footer">
+    <div class="cart-footer" *ngIf="cartProducts.length > 0">
       <h2>Total: {{ formatPrice(calculateTotalPrice()) }}</h2>
       <button class="checkout-btn">Finalizar Compra</button>
     </div>
@@ -59,6 +59,6 @@
 
 <ng-template #emptyCart>
   <div class="cart-main">
-    <p>Seu carrinho está vazio.</p>
+    <p class="empty-cart">Seu carrinho está vazio.</p>
   </div>
 </ng-template>
