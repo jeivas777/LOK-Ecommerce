@@ -21,6 +21,18 @@ export class CartService {
     this.cartProductsSubject.next([...currentCart, productCopy]);
   }
 
+  removeFromCart(product: any) {
+    const currentCart = this.cartProductsSubject.value;
+
+    const updatedCart = currentCart.filter(
+      (cartProduct) =>
+        cartProduct.id !== product.id ||
+        cartProduct.selectedSize !== product.selectedSize
+    );
+
+    this.cartProductsSubject.next(updatedCart);
+  }
+
   getCartProducts(): any {
     return this.cartProductsSubject.value;
   }

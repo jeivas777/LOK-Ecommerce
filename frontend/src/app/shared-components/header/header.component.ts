@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
 import { ProductService } from '../../services/product.service';
 import { SearchService } from '../../services/search.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -12,16 +13,24 @@ import { SearchService } from '../../services/search.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   menuOpen: boolean = false;
   showSearchBar: boolean = false;
   showCart: boolean = false;
+  cartProductsQnt: number = 0;
 
   constructor(
     private router: Router,
     private productService: ProductService,
+    private cartService: CartService,
     private searchService: SearchService
   ) {}
+
+  ngOnInit() {
+    this.cartService.cartProducts$.subscribe((response) => {
+      this.cartProductsQnt = response.length;
+    });
+  }
 
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
@@ -33,6 +42,7 @@ export class HeaderComponent {
 
   toggleCart(): void {
     this.showCart = !this.showCart;
+    console.log(this.cartProductsQnt);
   }
 
   onSubmit(form: any): void {
