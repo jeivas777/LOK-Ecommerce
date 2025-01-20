@@ -71,6 +71,7 @@ label {
   }
 
   .info-container {
+    width: 90%;
     padding: 0;
   }
 
@@ -94,10 +95,10 @@ label {
     display: flex;
     justify-content: center;
     width: 70%;
-    margin:0;
+    margin: 0;
   }
 
-  .thumbnail-container{
+  .thumbnail-container {
     margin-left: 8px;
   }
 }
@@ -147,7 +148,6 @@ label {
   background: #cccccc;
   border: 1px solid #cccccc;
 }
-
 
 .product-image {
   position: relative;

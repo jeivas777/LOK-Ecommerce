@@ -52,7 +52,7 @@
           aria-label="Default select example"
           [(ngModel)]="selectedSize"
         >
-          <option disabled selected>Selecione um tamanho</option>
+          <option [value]="null" disabled>Selecione um tamanho</option>
           <option value="P">P</option>
           <option value="M">M</option>
           <option value="G">G</option>
@@ -66,6 +66,7 @@
           type="button"
           class="btn-comprar"
           (click)="addToCart(selectedSize)"
+          [disabled]="!selectedSize"
         >
           Comprar
         </button>

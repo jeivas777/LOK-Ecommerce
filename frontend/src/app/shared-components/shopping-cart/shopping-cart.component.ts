@@ -28,4 +28,20 @@ export class ShoppingCartComponent implements OnInit {
   formatPrice(price: number): string {
     return `R$ ${price.toFixed(2).replace('.', ',')}`;
   }
+
+  removeItem(product: Product): void {
+    this.cartService.removeFromCart(product);
+  }
+
+  calculateTotalPrice(): number {
+    let totalPrice = 0;
+
+    this.cartService.cartProducts$.subscribe((cartItens) => {
+      cartItens.forEach((element) => {
+        totalPrice += element.price;
+      });
+    });
+
+    return totalPrice;
+  }
 }

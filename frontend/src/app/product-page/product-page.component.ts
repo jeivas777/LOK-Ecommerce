@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class ProductPageComponent implements OnInit {
   product: Product | null = null;
   selectedImage: string = '';
-  selectedSize: string = '';
+  selectedSize: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,7 +40,7 @@ export class ProductPageComponent implements OnInit {
     return this.productService.formatPrice(price);
   }
 
-  addToCart(selectedSize: String): void {
-    this.cartService.addToCart(this.product, selectedSize);
+  addToCart(selectedSize: String | null): void {
+    if (selectedSize) this.cartService.addToCart(this.product, selectedSize);
   }
 }
