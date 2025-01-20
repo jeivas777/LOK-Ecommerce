@@ -1,4 +1,7 @@
-<div class="main-content-container" *ngIf="products.length > 0; else noProducts">
+<div
+  class="main-content-container"
+  *ngIf="products.length > 0; else noProducts"
+>
   <div class="product-box" *ngFor="let product of products">
     <div class="product-image-container">
       <a [routerLink]="['/', formatName(product.name), product._id]">
@@ -24,8 +27,9 @@
       >
     </div>
   </div>
-
 </div>
 <ng-template #noProducts>
-  <p>Não encontramos nenhum produto</p>
+  <div class="main-content-container">
+    <p>Não encontramos nenhum produto</p>
+  </div>
 </ng-template>
