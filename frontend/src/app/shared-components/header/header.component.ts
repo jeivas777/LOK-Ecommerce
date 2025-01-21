@@ -47,7 +47,6 @@ export class HeaderComponent implements OnInit {
 
   onSubmit(form: any): void {
     const query = form.value.query;
-    this.searchService.setSearchQuery(query);
     this.router.navigate(['/search'], {
       queryParams: { q: query },
     });

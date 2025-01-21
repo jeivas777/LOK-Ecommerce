@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { response } from 'express';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -19,6 +20,12 @@ export class CartService {
     };
 
     this.cartProductsSubject.next([...currentCart, productCopy]);
+
+    this.cartProducts$.subscribe((response) => {
+      response.forEach((item, i) => {
+        item['cartId'] = i;
+      });
+    });
   }
 
   removeFromCart(product: any) {
@@ -26,7 +33,7 @@ export class CartService {
 
     const updatedCart = currentCart.filter(
       (cartProduct) =>
-        cartProduct.id !== product.id ||
+        cartProduct.cartId !== cartProduct.cartId ||
         cartProduct.selectedSize !== product.selectedSize
     );
 

@@ -25,22 +25,25 @@ export class ContentItensComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.query = this.route.snapshot.queryParamMap.get('q');
+    this.route.queryParamMap.subscribe((params) => {
+      this.query = params.get('q'); // Obtém o valor do parâmetro 'q'
 
-    this.searchService.searchQuery$.subscribe((query) => {
-      this.query = query;
-      this.fetchProducts(); // Atualiza os produtos quando a pesquisa muda
+      if (this.query && this.query.trim() !== '') {
+        // Caso exista uma query string válida, realiza a busca
+        this.fetchProducts(this.query);
+      } else {
+        // Caso contrário, carrega todos os produtos
+        this.fetchAllProducts();
+      }
     });
   }
 
-  fetchProducts(): void {
-    if (this.query && this.query.trim() !== '') {
-      this.products$ = this.productService.getProductByName(this.query);
-    } else {
-      this.productService.getProducts().subscribe((products) => {
-        this.products$ = this.productService.getProducts(); // Carrega todos os produtos caso a pesquisa esteja vazia
-      });
-    }
+  fetchProducts(query: string): void {
+    this.products$ = this.productService.getProductByName(query);
+  }
+
+  fetchAllProducts(): void {
+    this.products$ = this.productService.getProducts(); // Carrega todos os produtos caso a pesquisa esteja vazia
   }
 
   formatName(name: string): string {

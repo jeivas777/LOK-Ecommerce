@@ -37,6 +37,7 @@ export class ProductService {
   }
 
   getProductByName(productName: string): Observable<Product[]> {
+    console.log('get product by name');
     return this.http.get<Product[]>(
       this.productsEndpoint + '?name=' + productName
     );
