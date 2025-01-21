@@ -1,7 +1,4 @@
-<div
-  class="main-content-container"
-  *ngIf="products.length > 0; else noProducts"
->
+<div class="main-content-container" *ngIf="products$ | async as products">
   <div class="product-box" *ngFor="let product of products">
     <div class="product-image-container">
       <a [routerLink]="['/', formatName(product.name), product._id]">

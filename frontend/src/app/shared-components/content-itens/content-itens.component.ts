@@ -3,6 +3,7 @@ import { ProductService, Product } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { SearchService } from '../../services/search.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-content-itens',
@@ -11,10 +12,11 @@ import { SearchService } from '../../services/search.service';
   styleUrl: './content-itens.component.scss',
 })
 export class ContentItensComponent implements OnInit {
-  products: Product[] = [];
+  products$: Observable<Product[]> = new Observable();
   formattedPrice: string | null = null;
   currentImage: { [key: string]: string } = {};
   query: string | null = null;
+  loading: boolean = false;
 
   constructor(
     private productService: ProductService,
@@ -33,12 +35,10 @@ export class ContentItensComponent implements OnInit {
 
   fetchProducts(): void {
     if (this.query && this.query.trim() !== '') {
-      this.productService.getProductByName(this.query).subscribe((response) => {
-        this.products = response; // Atualiza os produtos filtrados
-      });
+      this.products$ = this.productService.getProductByName(this.query);
     } else {
       this.productService.getProducts().subscribe((products) => {
-        this.products = products; // Carrega todos os produtos caso a pesquisa esteja vazia
+        this.products$ = this.productService.getProducts(); // Carrega todos os produtos caso a pesquisa esteja vazia
       });
     }
   }
