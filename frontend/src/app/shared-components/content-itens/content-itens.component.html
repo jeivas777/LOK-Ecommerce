@@ -1,24 +1,24 @@
 <div class="main-content-container" *ngIf="products$ | async as products">
   <div class="product-box" *ngFor="let product of products">
     <div class="product-image-container">
-      <a [routerLink]="['/', formatName(product.name), product._id]">
+      <a [routerLink]="['/', formatName(product.name), product.id]">
         <img
           class="product-image"
-          [src]="currentImage[product._id] || product.images[0]"
+          [src]="currentImage[product.id] || product.images[0]"
           alt=""
-          (mouseover)="updateCurrentImage(product._id, product.images[1])"
-          (mouseout)="updateCurrentImage(product._id, product.images[0])"
+          (mouseover)="updateCurrentImage(product.id, product.images[1])"
+          (mouseout)="updateCurrentImage(product.id, product.images[0])"
         />
       </a>
     </div>
     <div class="product-info">
       <a
-        [routerLink]="['/', formatName(product.name), product._id]"
+        [routerLink]="['/', formatName(product.name), product.id]"
         class="product-name"
         >{{ product.name }}</a
       >
       <a
-        [routerLink]="['/', formatName(product.name), product._id]"
+        [routerLink]="['/', formatName(product.name), product.id]"
         class="product-price"
         >{{ formatPrice(product.price) }}</a
       >

@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
 import { ProductService } from '../../services/product.service';
-import { SearchService } from '../../services/search.service';
 import { CartService } from '../../services/cart.service';
 
 @Component({
@@ -22,8 +21,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private productService: ProductService,
-    private cartService: CartService,
-    private searchService: SearchService
+    private cartService: CartService
   ) {}
 
   ngOnInit() {
@@ -42,7 +40,6 @@ export class HeaderComponent implements OnInit {
 
   toggleCart(): void {
     this.showCart = !this.showCart;
-    console.log(this.cartProductsQnt);
   }
 
   onSubmit(form: any): void {

@@ -51,17 +51,23 @@
           class="form-select size-droplist"
           aria-label="Default select example"
           [(ngModel)]="selectedSize"
+          (change)="onChange($event)"
         >
           <option [value]="null" disabled>Selecione um tamanho</option>
-          <option value="P">P</option>
-          <option value="M">M</option>
-          <option value="G">G</option>
-          <option value="GG">GG</option>
+          <option *ngFor="let size of availableSizes" value="{{ size }}">
+            {{ size }}
+          </option>
         </select>
       </div>
 
       <!-- Botão de Compra -->
       <div class="buy-container">
+        <div class="counter-container">
+          <div class="decrease quantity" (click)="decrementQuantity()">-</div>
+          <span>{{ quantity }}</span>
+          <div class="increase quantity" (click)="incrementQuantity()">+</div>
+        </div>
+
         <button
           type="button"
           class="btn-comprar"

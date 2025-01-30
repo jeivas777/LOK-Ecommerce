@@ -1,39 +1,58 @@
 import { Injectable } from '@angular/core';
 import { response } from 'express';
 import { BehaviorSubject } from 'rxjs';
+import { Product } from './product.service';
+
+export interface CartProduct {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  stockBySize: { [size: string]: number };
+  images: string[];
+  selectedSize: string;
+  quantity: number;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  private cartProductsSubject = new BehaviorSubject<any[]>([]);
+  private cartProductsSubject = new BehaviorSubject<CartProduct[]>([]);
   cartProducts$ = this.cartProductsSubject.asObservable();
 
   constructor() {}
 
-  addToCart(product: any, selectedSize: String): void {
+  addToCart(product: Product, selectedSize: string, quantity: number): void {
     const currentCart = this.cartProductsSubject.value;
 
-    const productCopy = {
-      ...product,
-      selectedSize: selectedSize,
-    };
+    const productToUpdate = currentCart.find(
+      (cartProduct) =>
+        cartProduct.id == product.id && cartProduct.selectedSize == selectedSize
+    );
 
-    this.cartProductsSubject.next([...currentCart, productCopy]);
+    if (productToUpdate) {
+      productToUpdate.quantity = quantity;
 
-    this.cartProducts$.subscribe((response) => {
-      response.forEach((item, i) => {
-        item['cartId'] = i;
-      });
-    });
+      this.cartProductsSubject.next(currentCart);
+    } else {
+      const productCopy = {
+        ...product,
+        selectedSize: selectedSize,
+        quantity: quantity,
+      };
+
+      this.cartProductsSubject.next([...currentCart, productCopy]);
+    }
   }
 
-  removeFromCart(product: any) {
+  removeFromCart(product: CartProduct) {
     const currentCart = this.cartProductsSubject.value;
 
     const updatedCart = currentCart.filter(
       (cartProduct) =>
-        cartProduct.cartId !== cartProduct.cartId ||
+        cartProduct.id !== product.id ||
         cartProduct.selectedSize !== product.selectedSize
     );
 
@@ -42,5 +61,34 @@ export class CartService {
 
   getCartProducts(): any {
     return this.cartProductsSubject.value;
+  }
+
+  decrementQuantity(product: CartProduct) {
+    if (product && product.quantity > 1) {
+      const currentCart = this.cartProductsSubject.value;
+
+      const productToUpdate = currentCart.find(
+        (cartProduct) =>
+          cartProduct.id == product.id &&
+          cartProduct.selectedSize == product.selectedSize
+      );
+
+      if (productToUpdate) productToUpdate.quantity--;
+    }
+  }
+
+  incrementQuantity(product: CartProduct) {
+    if (product) {
+      const currentCart = this.cartProductsSubject.value;
+
+      const productToUpdate = currentCart.find(
+        (cartProduct) =>
+          cartProduct.id == product.id &&
+          cartProduct.selectedSize == product.selectedSize
+      );
+
+      if (productToUpdate) productToUpdate.quantity++;
+      console.log(this.cartProductsSubject.value);
+    }
   }
 }

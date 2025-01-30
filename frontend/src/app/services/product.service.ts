@@ -4,12 +4,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { get } from 'mongoose';
 
 export interface Product {
-  _id: string;
+  id: number;
   name: string;
   description: string;
   price: number;
   category: string;
-  stock: number;
   stockBySize: { [size: string]: number };
   images: string[];
 }
@@ -22,8 +21,10 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.productsEndpoint);
+  getProducts(page: number, limit: number): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      `${this.productsEndpoint}?page=${page}&limit=${limit}`
+    );
   }
 
   addProduct(product: Product): Observable<Product> {
@@ -32,14 +33,16 @@ export class ProductService {
 
   getProduct(productId: string): Observable<Product> {
     const idEndpoint: string = this.productsEndpoint + '/' + productId;
-    console.log(idEndpoint);
     return this.http.get<Product>(idEndpoint);
   }
 
-  getProductByName(productName: string): Observable<Product[]> {
-    console.log('get product by name');
+  getProductByName(
+    name: string,
+    page: number,
+    limit: number
+  ): Observable<Product[]> {
     return this.http.get<Product[]>(
-      this.productsEndpoint + '?name=' + productName
+      `${this.productsEndpoint}?name=${name}&page=${page}&limit=${limit}`
     );
   }
 

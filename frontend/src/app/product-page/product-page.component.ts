@@ -15,6 +15,8 @@ export class ProductPageComponent implements OnInit {
   product: Product | null = null;
   selectedImage: string = '';
   selectedSize: string | null = null;
+  availableSizes: string[] | null = null;
+  quantity: number = 1;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,9 +27,18 @@ export class ProductPageComponent implements OnInit {
   ngOnInit(): void {
     const productId = this.route.snapshot.paramMap.get('id');
     if (productId) {
-      this.productService.getProduct(productId).subscribe((product) => {
-        this.product = product;
-        this.selectedImage = this.product.images[0];
+      this.productService.getProduct(productId).subscribe((res) => {
+        this.product = res;
+
+        for (const [key, value] of Object.entries(this.product.stockBySize)) {
+          if (value > 0) {
+            if (this.availableSizes)
+              this.availableSizes = [...this.availableSizes, key];
+            else this.availableSizes = [key];
+          }
+        }
+        if (this.product.images && !this.selectedImage)
+          this.selectedImage = this.product.images[0];
       });
     }
   }
@@ -40,7 +51,34 @@ export class ProductPageComponent implements OnInit {
     return this.productService.formatPrice(price);
   }
 
-  addToCart(selectedSize: String | null): void {
-    if (selectedSize) this.cartService.addToCart(this.product, selectedSize);
+  addToCart(selectedSize: string | null): void {
+    if (selectedSize && this.product) {
+      this.cartService.addToCart(this.product, selectedSize, this.quantity);
+    }
+  }
+
+  incrementQuantity() {
+    if (
+      this.selectedSize &&
+      this.product &&
+      this.quantity < 10 &&
+      this.product.stockBySize[this.selectedSize] > this.quantity
+    )
+      this.quantity++;
+  }
+
+  decrementQuantity() {
+    if (this.quantity > 1) {
+      this.quantity--;
+    }
+  }
+
+  onChange(select: any) {
+    if (
+      this.product &&
+      this.selectedSize &&
+      this.quantity > this.product.stockBySize[this.selectedSize]
+    )
+      this.quantity = this.product.stockBySize[this.selectedSize];
   }
 }

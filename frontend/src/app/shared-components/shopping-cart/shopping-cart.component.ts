@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CartService } from '../../services/cart.service';
+import { CartProduct, CartService } from '../../services/cart.service';
 import { Product } from '../../services/product.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { Product } from '../../services/product.service';
 })
 export class ShoppingCartComponent implements OnInit {
   @Output() closeCart = new EventEmitter<void>();
-  cartProducts: any[] = [];
+  cartProducts: CartProduct[] = [];
 
   constructor(private cartService: CartService) {}
 
@@ -29,7 +29,7 @@ export class ShoppingCartComponent implements OnInit {
     return `R$ ${price.toFixed(2).replace('.', ',')}`;
   }
 
-  removeItem(product: Product): void {
+  removeItem(product: CartProduct): void {
     this.cartService.removeFromCart(product);
   }
 
@@ -43,5 +43,13 @@ export class ShoppingCartComponent implements OnInit {
     });
 
     return totalPrice;
+  }
+
+  decrementQuantity(product: CartProduct) {
+    this.cartService.decrementQuantity(product);
+  }
+
+  incrementQuantity(product: CartProduct) {
+    this.cartService.incrementQuantity(product);
   }
 }

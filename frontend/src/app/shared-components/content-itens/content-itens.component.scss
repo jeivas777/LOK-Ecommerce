@@ -1,13 +1,17 @@
 .main-content-container {
   margin: 0 auto;
-  width: 94%;
+  width: 100%;
+  padding: 0 50px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
 }
 
 @media (max-width: 1024px) {
   .main-content-container {
+    padding: 0 20px;
     grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 }
 

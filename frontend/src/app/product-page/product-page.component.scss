@@ -55,7 +55,7 @@ p {
 }
 
 .info-container {
-  width: 45%;
+  width: 55%;
   margin: 0 auto;
 }
 
@@ -105,10 +105,9 @@ label {
 
 /* Estilo base para o botão */
 .btn-comprar {
-  width: 100%;
-  margin-bottom: 26px;
-  padding: 10px 20px;
+  width: 60%;
   font-size: 16px;
+  padding: 10px 20px;
   font-weight: bold;
   border: 1px solid transparent;
   cursor: pointer;
@@ -181,4 +180,29 @@ label {
 
 .thumbnail:hover {
   border-color: #666;
+}
+
+.buy-container {
+  width: 100%;
+  margin-bottom: 26px;
+  display: flex;
+  gap: 16px;
+}
+
+.counter-container {
+  display: flex;
+  font-size: 24px;
+  justify-content: space-between;
+  align-items: center;
+  width: 40%;
+  border: 1px solid #cccccc;
+  padding: 0 16px;
+}
+
+.counter-container span {
+  font-size: 20px;
+}
+
+.counter-container .quantity {
+  cursor: pointer;
 }

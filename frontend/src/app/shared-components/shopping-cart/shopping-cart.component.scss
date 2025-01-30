@@ -66,6 +66,7 @@
 /* Cart Item */
 .cart-item {
   display: flex;
+  position: relative;
   align-items: center;
   padding: 15px;
   background-color: #fff;
@@ -188,8 +189,37 @@
 
 .order-info {
   display: flex;
+  justify-content: space-between;
 }
 
 .empty-cart {
   font-weight: 400;
+}
+
+.counter-container {
+  display: flex;
+  font-size: 20px;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+}
+
+.counter-container span {
+  font-size: 18px;
+}
+
+.counter-container .quantity {
+  cursor: pointer;
+}
+
+.order-info p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.order-info h4 {
+  margin: 0;
+  display: flex;
+  align-items: center;
 }

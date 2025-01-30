@@ -4,16 +4,28 @@ const router = express.Router();
 
 // Listar todos os produtos
 router.get("/products", async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const offset = (page - 1) * limit;
+
   try {
-    let query = {};
+    let query = req.query.name;
+    let rows;
 
     if (req.query.name) {
-      query.name = { $regex: req.query.name, $options: "i" };
+      [rows] = await req.db.query(
+        "SELECT * FROM products WHERE name=? LIMIT ? OFFSET ?",
+        [query, limit, offset]
+      );
+    } else {
+      console.log("No filter");
+      [rows] = await req.db.query("SELECT * FROM products LIMIT ? OFFSET ?", [
+        limit,
+        offset,
+      ]);
     }
 
-    const product = await Product.find(query);
-
-    res.json(product);
+    res.json(rows);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -22,8 +34,11 @@ router.get("/products", async (req, res) => {
 // Buscar um produto específico
 router.get("/products/:id", async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
-    res.json(product);
+    const [[rows]] = await req.db.query(
+      "SELECT * FROM products WHERE ID = ?",
+      req.params.id
+    );
+    res.json(rows);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
