@@ -18,7 +18,6 @@ router.get("/products", async (req, res) => {
         [query, limit, offset]
       );
     } else {
-      console.log("No filter");
       [rows] = await req.db.query("SELECT * FROM products LIMIT ? OFFSET ?", [
         limit,
         offset,

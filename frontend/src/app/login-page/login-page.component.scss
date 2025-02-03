@@ -1,0 +1,116 @@
+.content-container {
+  width: 100%;
+  padding: 0 50px;
+}
+
+.login-container {
+  width: 30%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #cccccc;
+  padding: 50px 20px;
+}
+
+.login-container h1 {
+  margin-bottom: 0;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form label {
+  margin-top: 16px;
+}
+
+/* Estilo base para o botão */
+.btn-entrar {
+  width: 100%;
+  font-size: 16px;
+  padding: 10px 20px;
+  margin-top: 16px;
+  font-weight: bold;
+  border: 1px solid transparent;
+  cursor: pointer;
+  position: relative;
+  background-color: black;
+  color: white;
+  overflow: hidden; /* Impede que o efeito de animação ultrapasse os limites do botão */
+  z-index: 1; /* Garantir que o botão fique acima da animação */
+  transition: color 0.4s, background-color 0.4s, border 0.4s;
+}
+
+/* Efeito de animação da linha da esquerda para a direita */
+.btn-entrar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  transition: left 0.4s ease-in-out;
+  z-index: -1; /* Garantir que a animação fique abaixo do conteúdo do botão */
+}
+
+/* Efeito de Hover - Troca de cores, borda e animação */
+.btn-entrar:hover {
+  color: black;
+  background-color: white;
+  border: 1px solid black; /* Borda preta ao passar o mouse */
+}
+
+.btn-entrar:hover::before {
+  left: 0;
+}
+
+/* Estilo base para o botão */
+.btn-cadastrar {
+  width: 100%;
+  font-size: 16px;
+  padding: 10px 20px;
+  margin-top: 16px;
+  font-weight: bold;
+  border: 1px solid transparent;
+  cursor: pointer;
+  position: relative;
+  background-color: black;
+  color: white;
+  overflow: hidden; /* Impede que o efeito de animação ultrapasse os limites do botão */
+  z-index: 1; /* Garantir que o botão fique acima da animação */
+  transition: color 0.4s, background-color 0.4s, border 0.4s;
+}
+
+/* Efeito de animação da linha da esquerda para a direita */
+.btn-cadastrar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  transition: left 0.4s ease-in-out;
+  z-index: -1; /* Garantir que a animação fique abaixo do conteúdo do botão */
+}
+
+/* Efeito de Hover - Troca de cores, borda e animação */
+.btn-cadastrar:hover {
+  color: black;
+  background-color: white;
+  border: 1px solid black; /* Borda preta ao passar o mouse */
+}
+
+.btn-cadastrar:hover::before {
+  left: 0;
+}
+
+.recuperar-senha {
+  border: 0;
+  background-color: #ffff;
+  text-align: left;
+  padding: 0;
+  margin-top: 8px;
+}

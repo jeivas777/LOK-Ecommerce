@@ -4,12 +4,14 @@ import { HomeComponent } from './home/home.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { NgModule } from '@angular/core';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: ':name/:id', component: ProductPageComponent },
+  { path: 'account/login', component: LoginPageComponent },
   { path: 'search', component: SearchResultsComponent },
+  { path: ':name/:id', component: ProductPageComponent },
 ];
 
 @NgModule({
