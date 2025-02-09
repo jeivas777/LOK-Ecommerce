@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { get } from 'mongoose';
+
+export interface ProductResponse {
+  products: Product[];
+  totalItems: number;
+}
 
 export interface Product {
   id: number;
@@ -21,8 +25,8 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  getProducts(page: number, limit: number): Observable<Product[]> {
-    return this.http.get<Product[]>(
+  getProducts(page: number, limit: number): Observable<ProductResponse> {
+    return this.http.get<ProductResponse>(
       `${this.productsEndpoint}?page=${page}&limit=${limit}`
     );
   }
@@ -40,8 +44,8 @@ export class ProductService {
     name: string,
     page: number,
     limit: number
-  ): Observable<Product[]> {
-    return this.http.get<Product[]>(
+  ): Observable<ProductResponse> {
+    return this.http.get<ProductResponse>(
       `${this.productsEndpoint}?name=${name}&page=${page}&limit=${limit}`
     );
   }
