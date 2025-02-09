@@ -39,7 +39,7 @@ router.get("/products", async (req, res) => {
 // Buscar um produto específico
 router.get("/products/:id", async (req, res) => {
   try {
-    const [[products]] = await req.db.query(
+    const [[rows]] = await req.db.query(
       "SELECT * FROM products WHERE ID = ?",
       req.params.id
     );
