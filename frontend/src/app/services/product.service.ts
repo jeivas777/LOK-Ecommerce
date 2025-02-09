@@ -25,9 +25,13 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  getProducts(page: number, limit: number): Observable<ProductResponse> {
+  getProducts(
+    page: number,
+    limit: number,
+    name: string
+  ): Observable<ProductResponse> {
     return this.http.get<ProductResponse>(
-      `${this.productsEndpoint}?page=${page}&limit=${limit}`
+      `${this.productsEndpoint}?name=${name}&page=${page}&limit=${limit}`
     );
   }
 
@@ -38,16 +42,6 @@ export class ProductService {
   getProduct(productId: string): Observable<Product> {
     const idEndpoint: string = this.productsEndpoint + '/' + productId;
     return this.http.get<Product>(idEndpoint);
-  }
-
-  getProductByName(
-    name: string,
-    page: number,
-    limit: number
-  ): Observable<ProductResponse> {
-    return this.http.get<ProductResponse>(
-      `${this.productsEndpoint}?name=${name}&page=${page}&limit=${limit}`
-    );
   }
 
   formatPrice(price: number): string {

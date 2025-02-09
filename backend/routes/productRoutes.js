@@ -9,28 +9,32 @@ router.get("/products", async (req, res) => {
   const offset = (page - 1) * limit;
 
   try {
-    let query = req.query.name;
+    let query = `%${req.query.name}%`;
     let rows;
+    let totalItems;
 
     if (req.query.name) {
       [rows] = await req.db.query(
-        "SELECT * FROM products WHERE name=? LIMIT ? OFFSET ?",
+        "SELECT * FROM products WHERE name LIKE ? LIMIT ? OFFSET ?",
         [query, limit, offset]
+      );
+
+      [[totalItems]] = await req.db.query(
+        "SELECT COUNT(*) AS totalItems FROM products WHERE name LIKE ?",
+        [query]
       );
     } else {
       [rows] = await req.db.query("SELECT * FROM products LIMIT ? OFFSET ?", [
         limit,
         offset,
       ]);
+      [[totalItems]] = await req.db.query(
+        "SELECT COUNT(*) AS totalItems FROM products",
+        [query]
+      );
     }
 
-    const [totalItemsResult] = await req.db.query(
-      "SELECT COUNT(*) AS totalItems FROM products"
-    );
-
-    const totalItems = totalItemsResult[0].totalItems;
-
-    res.json({ products: rows, totalItems: totalItems });
+    res.json({ products: rows, totalItems: totalItems.totalItems });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

@@ -17,9 +17,9 @@ export class ContentItensComponent implements OnInit {
   query: string | null = null;
 
   page: number = 1;
-  limit: number = 10;
-  totalItems: number = 0;
-  totalPages: number = 1;
+  limit: number = 8;
+  totalPages: number = 0;
+  pages: number[] = [];
   maxPagesToShow: number = 5; // Number of pages to display at a time
 
   constructor(
@@ -29,8 +29,6 @@ export class ContentItensComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getTotalProducts();
-
     this.route.queryParamMap.subscribe((params) => {
       this.query = params.get('q'); // Obtém o valor do parâmetro 'q'
 
@@ -42,36 +40,24 @@ export class ContentItensComponent implements OnInit {
 
       if (this.query && this.query.trim() !== '') {
         // Caso exista uma query string válida, realiza a busca
-        this.fetchProducts(this.query, this.page, this.limit);
+        this.fetchProducts(this.page, this.limit, this.query);
       } else {
         // Caso contrário, carrega todos os produtos
-        this.fetchAllProducts(this.page, this.limit);
+        this.fetchProducts(this.page, this.limit);
       }
     });
   }
 
-  fetchProducts(query: string, page: number, limit: number): void {
-    this.products$ = this.productService
-      .getProductByName(query, page, limit)
-      .pipe(
-        map((response) => response.products) // Aqui estamos extraindo a propriedade `products`
-      );
-
-    this.productService
-      .getProductByName(query, page, limit)
-      .subscribe((res) => {
-        this.totalPages = Math.ceil(this.totalItems / limit); // Calculate total pages
-      });
-  }
-
-  fetchAllProducts(page: number, limit: number): void {
-    this.products$ = this.productService.getProducts(page, limit).pipe(
+  fetchProducts(page: number, limit: number, query: string = ''): void {
+    this.products$ = this.productService.getProducts(page, limit, query).pipe(
       map((response) => response.products) // Aqui estamos extraindo a propriedade `products`
     );
 
-    this.productService.getProducts(page, limit).subscribe((res) => {
-      this.totalPages = Math.ceil(this.totalItems / limit); // Calculate total pages
-    });
+    this.getPagination(page, limit, query);
+
+    this.productService
+      .getProducts(page, limit, query)
+      .subscribe((res) => console.log(res));
   }
 
   formatName(name: string): string {
@@ -86,23 +72,29 @@ export class ContentItensComponent implements OnInit {
     this.currentImage[productId] = newImage;
   }
 
-  getTotalProducts(): void {
-    this.productService.getProducts(this.page, this.limit).subscribe((res) => {
-      this.totalItems = res.totalItems;
+  getPagination(page: number, limit: number, query: string): void {
+    this.productService.getProducts(page, limit, query).subscribe((res) => {
+      this.totalPages = Math.ceil(res.totalItems / this.limit); // Calculate total pages
+      this.pages = this.getPages();
     });
   }
 
   getPages(): number[] {
-    const half = Math.floor(this.maxPagesToShow / 2);
-    let start = Math.max(1, this.page - half);
-    let end = Math.min(this.totalPages, start + this.maxPagesToShow - 1);
+    const pages: number[] = [];
+    const startPage = Math.max(
+      1,
+      this.page - Math.floor(this.maxPagesToShow / 2)
+    );
+    const endPage = Math.min(
+      this.totalPages,
+      startPage + this.maxPagesToShow - 1
+    );
 
-    // Adjust when close to the start or end
-    if (end - start < this.maxPagesToShow - 1) {
-      start = Math.max(1, end - this.maxPagesToShow + 1);
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
     }
 
-    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+    return pages;
   }
 
   changePage(newPage: number) {
