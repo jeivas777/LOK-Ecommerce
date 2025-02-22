@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService, Product } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-content-itens',
@@ -12,9 +12,11 @@ import { map, Observable } from 'rxjs';
 })
 export class ContentItensComponent implements OnInit {
   products$: Observable<Product[]> = new Observable();
+  isLoading = true;
   formattedPrice: string | null = null;
   currentImage: { [key: string]: string } = {};
   query: string | null = null;
+  skeletonArray = new Array(6); // Simula 6 itens em loading
 
   page: number = 1;
   limit: number = 8;
@@ -50,14 +52,16 @@ export class ContentItensComponent implements OnInit {
 
   fetchProducts(page: number, limit: number, query: string = ''): void {
     this.products$ = this.productService.getProducts(page, limit, query).pipe(
-      map((response) => response.products) // Aqui estamos extraindo a propriedade `products`
+      tap((res) => {
+        this.totalPages = Math.ceil(res.totalItems / this.limit); // Calculate total pages
+        this.pages = this.getPages();
+      }),
+      map((res) => res.products) // Aqui estamos extraindo a propriedade `products`
     );
 
-    this.getPagination(page, limit, query);
-
-    this.productService
-      .getProducts(page, limit, query)
-      .subscribe((res) => console.log(res));
+    this.products$.subscribe((res) => {
+      this.isLoading = false;
+    });
   }
 
   formatName(name: string): string {
@@ -70,13 +74,6 @@ export class ContentItensComponent implements OnInit {
 
   updateCurrentImage(productId: number, newImage: string): void {
     this.currentImage[productId] = newImage;
-  }
-
-  getPagination(page: number, limit: number, query: string): void {
-    this.productService.getProducts(page, limit, query).subscribe((res) => {
-      this.totalPages = Math.ceil(res.totalItems / this.limit); // Calculate total pages
-      this.pages = this.getPages();
-    });
   }
 
   getPages(): number[] {
