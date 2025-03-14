@@ -20,6 +20,7 @@ export class ContentItensComponent implements OnInit {
 
   page: number = 1;
   limit: number = 8;
+  totalItems: number = 0;
   totalPages: number = 0;
   pages: number[] = [];
   maxPagesToShow: number = 5; // Number of pages to display at a time
@@ -55,6 +56,7 @@ export class ContentItensComponent implements OnInit {
       tap((res) => {
         this.totalPages = Math.ceil(res.totalItems / this.limit); // Calculate total pages
         this.pages = this.getPages();
+        this.totalItems = res.totalItems;
       }),
       map((res) => res.products) // Aqui estamos extraindo a propriedade `products`
     );

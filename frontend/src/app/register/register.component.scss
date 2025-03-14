@@ -25,6 +25,10 @@
   margin-top: 16px;
 }
 
+.login-form input {
+  padding: 5px;
+}
+
 /* Estilo base para o botão */
 .btn-entrar {
   width: 100%;
@@ -71,7 +75,7 @@
   width: 100%;
   font-size: 16px;
   padding: 10px 20px;
-  margin-top: 8px;
+  margin-top: 16px;
   font-weight: bold;
   border: 1px solid transparent;
   cursor: pointer;
@@ -107,14 +111,6 @@
   left: 0;
 }
 
-.recuperar-senha {
-  border: 0;
-  background-color: #ffff;
-  text-align: left;
-  padding: 0;
-  margin-top: 8px;
-}
-
 @media (max-width: 1028px) {
   .login-container {
     width: 80%;
@@ -124,8 +120,4 @@
     border: 1px solid #cccccc;
     padding: 50px 20px;
   }
-}
-
-.login-form input {
-  padding: 5px;
 }

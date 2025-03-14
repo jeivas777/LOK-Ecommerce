@@ -2,17 +2,48 @@
   <div class="login-container">
     <h1>Iniciar Sessão</h1>
 
-    <form class="login-form" action="">
-      <label class="email-label" for="">E-mail</label>
-      <input class="email" name="email" id="email" />
+    <form
+      class="login-form"
+      action=""
+      #loginForm="ngForm"
+      (ngSubmit)="onSubmit(loginForm)"
+    >
+      <label class="label" for="">E-mail</label>
+      <input
+        class="input"
+        name="email"
+        id="email"
+        required
+        [(ngModel)]="email"
+        #emailRef="ngModel"
+      />
+      <app-error-message
+        [control]="emailRef"
+        fieldName="email"
+      ></app-error-message>
 
-      <label class="password-label" for="">Senha</label>
-      <input class="password" type="text" name="password" id="password" />
+      <label class="label" for="">Senha</label>
+      <input
+        class="input"
+        type="text"
+        name="senha"
+        id="senha"
+        required
+        [(ngModel)]="senha"
+        #senhaRef="ngModel"
+      />
+      <app-error-message
+        [control]="senhaRef"
+        fieldName="senha"
+      ></app-error-message>
+
+      <button class="recuperar-senha">Esqueci minha senha</button>
+
+      <button type="submit" class="btn-entrar">Entrar</button>
     </form>
 
-    <button class="recuperar-senha">Esqueci minha senha</button>
-
-    <button type="button" class="btn-entrar">Entrar</button>
-    <button type="button" class="btn-cadastrar">Criar Conta</button>
+    <button type="button" class="btn-cadastrar" routerLink="/account/register">
+      Criar Conta
+    </button>
   </div>
 </div>
