@@ -13,24 +13,31 @@ router.get("/products", async (req, res) => {
     let rows;
     let totalItems;
 
+    const stockCondition = `
+      (JSON_EXTRACT(stockBySize, '$.L') > 0 OR 
+       JSON_EXTRACT(stockBySize, '$.M') > 0 OR 
+       JSON_EXTRACT(stockBySize, '$.S') > 0 OR
+       JSON_EXTRACT(stockBySize, '$.XL') > 0)
+    `;
+
     if (req.query.name) {
       [rows] = await req.db.query(
-        "SELECT * FROM products WHERE name LIKE ? LIMIT ? OFFSET ?",
+        `SELECT * FROM products WHERE name LIKE ? AND ${stockCondition} LIMIT ? OFFSET ?`,
         [query, limit, offset]
       );
 
       [[totalItems]] = await req.db.query(
-        "SELECT COUNT(*) AS totalItems FROM products WHERE name LIKE ?",
+        `SELECT COUNT(*) AS totalItems FROM products WHERE name LIKE ? AND ${stockCondition}`,
         [query]
       );
     } else {
-      [rows] = await req.db.query("SELECT * FROM products LIMIT ? OFFSET ?", [
-        limit,
-        offset,
-      ]);
+      [rows] = await req.db.query(
+        `SELECT * FROM products WHERE ${stockCondition} LIMIT ? OFFSET ?`,
+        [limit, offset]
+      );
+
       [[totalItems]] = await req.db.query(
-        "SELECT COUNT(*) AS totalItems FROM products",
-        [query]
+        `SELECT COUNT(*) AS totalItems FROM products WHERE ${stockCondition}`
       );
     }
 
