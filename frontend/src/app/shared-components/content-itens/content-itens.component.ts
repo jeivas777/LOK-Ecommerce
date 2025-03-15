@@ -47,6 +47,7 @@ export class ContentItensComponent implements OnInit {
       } else {
         // Caso contrário, carrega todos os produtos
         this.fetchProducts(this.page, this.limit);
+        console.log(this.products$);
       }
     });
   }
