@@ -21,7 +21,7 @@ export interface Product {
   providedIn: 'root',
 })
 export class ProductService {
-  private productsEndpoint = 'http://localhost:5000/api/products';
+  private productsEndpoint = 'https://lok-ecommerce.onrender.com/api/products';
 
   constructor(private http: HttpClient) {}
 
