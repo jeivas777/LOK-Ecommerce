@@ -11,9 +11,21 @@
             <img
               class="product-image skeleton"
               [src]="currentImage[product.id] || product.images[0]"
+              [srcset]="
+                currentImage[product.id] ||
+                product.images[0] +
+                  '_300x300q75.jpg_.avif 300w, ' +
+                  currentImage[product.id] ||
+                product.images[0] +
+                  '_600x600q75.jpg_.avif 600w, ' +
+                  currentImage[product.id] ||
+                product.images[0] + '_960x960q75.jpg_.avif 960w'
+              "
+              sizes="(max-width: 600px) 300px, (max-width: 960px) 600px, 960px"
               alt=""
               (mouseover)="updateCurrentImage(product.id, product.images[1])"
               (mouseout)="updateCurrentImage(product.id, product.images[0])"
+              loading="lazy"
             />
           </a>
         </div>

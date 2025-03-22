@@ -14,6 +14,7 @@
       sizes="(max-width: 600px) 300px, (max-width: 960px) 600px, 960px"
       class="d-block w-100 main-image"
       alt="Main Product Image"
+      loading="lazy"
     />
 
     <!-- Lista de Miniaturas -->
@@ -37,6 +38,7 @@
         [class.active]="image === selectedImage"
         (click)="selectImage(image)"
         [alt]="'Imagem do produto LOK'"
+        loading="lazy"
       />
     </div>
   </div>
