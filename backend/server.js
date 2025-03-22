@@ -1,5 +1,5 @@
 const express = require("express");
-const mysql2 = require("mysql2/promise");
+const mysql = require("mysql2/promise");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const productRoutes = require("./routes/productRoutes");
@@ -20,7 +20,7 @@ let connection;
 app.use(async (req, res, next) => {
   try {
     if (!connection) {
-      connection = await mysql2.createConnection(dbConfig);
+      connection = await mysql.createConnection(dbConfig);
       console.log("MySQL conectado com sucesso :)");
     }
 
@@ -36,6 +36,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use("/api", productRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Servidor rodando...");
 });
