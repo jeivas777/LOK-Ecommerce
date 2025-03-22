@@ -5,14 +5,13 @@ const bodyParser = require("body-parser");
 const productRoutes = require("./routes/productRoutes");
 
 const app = express();
-const PORT = 5000;
 
 const dbConfig = {
-  host: "127.0.0.1",
-  user: "root",
-  password: "27022005",
-  database: "ecommerce",
-  port: 3306,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
 };
 
 let connection;
