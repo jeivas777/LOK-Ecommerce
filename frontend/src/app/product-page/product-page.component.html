@@ -14,11 +14,20 @@
     >
       <img
         *ngFor="let image of product.images"
-        [src]="image"
+        [src]="image + '_300x300q75.jpg_.avif'"
+        [srcset]="
+          image +
+          '_300x300q75.jpg_.avif 300w, ' +
+          image +
+          '_600x600q75.jpg_.avif 600w, ' +
+          image +
+          '_960x960q75.jpg_.avif 960w'
+        "
+        sizes="(max-width: 600px) 300px, (max-width: 960px) 600px, 960px"
         class="thumbnail"
         [class.active]="image === selectedImage"
         (click)="selectImage(image)"
-        [alt]="'Thumbnail of product image ' + image"
+        [alt]="'Imagem do produto LOK'"
       />
     </div>
   </div>
@@ -38,10 +47,16 @@
       <h1>{{ product.name }}</h1>
       <p>{{ formatPrice(product.price) }}</p>
       <p class="info">
-        Confeccionada em Suedine Branco 100% algodão 240GSM (alta gramatura) na
-        modelagem CIENA, nossa t-shirt conta com estampa frontal e traseira em
-        Silk. <br /><br />Considere um encolhimento natural de 5%, consulte a
-        tabela de medidas.
+        Confeccionada em Suedine branco 100% algodão de alta gramatura (240GSM),
+        a t-shirt LOK apresenta a exclusiva modelagem CIENA, proporcionando
+        caimento premium e conforto incomparável. A peça conta com estampa em
+        silk localizada tanto na parte frontal quanto traseira, entregando
+        estilo com identidade marcante.
+
+        <br /><br />
+        Atenção: por se tratar de algodão, considere um encolhimento natural de
+        até 5% após as primeiras lavagens. Consulte a tabela de medidas para
+        garantir o melhor ajuste.
       </p>
 
       <!-- Selector de Tamanhos -->
