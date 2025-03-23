@@ -10,7 +10,7 @@
           <a [routerLink]="['/', formatName(product.name), product.id]">
             <!-- prettier-ignore -->
             <img
-            class="product-image skeleton"
+            class="product-image"
             [src]="(currentImage[product.id] ? currentImage[product.id] : product.images[0] + '_300x300q75.jpg_.avif')"
             [srcset]="
               (currentImage[product.id] ? currentImage[product.id] + '_300x300q75.jpg_.avif' : product.images[0] + '_300x300q75.jpg_.avif') + ' 300w, ' +
