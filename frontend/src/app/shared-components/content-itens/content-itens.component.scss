@@ -84,38 +84,50 @@
   cursor: pointer;
 }
 
-.skeleton {
+.skeleton-image {
+  width: 100%;
+  height: 250px;
   background-color: #e0e0e0;
   border-radius: 4px;
-  animation: shimmer 1.5s infinite linear;
-}
-
-.skeleton-img {
-  width: 100%;
-  height: 200px;
+  margin-bottom: 10px;
 }
 
 .skeleton-text {
-  width: 80%;
+  width: 100%;
   height: 20px;
-  margin-top: 10px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  margin: 6px 0;
 }
 
-.skeleton-price {
+.skeleton-text.short {
   width: 50%;
-  height: 20px;
-  margin-top: 5px;
+}
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150px;
+  height: 100%;
+  width: 150px;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0)
+  );
+  animation: shimmer 1.2s infinite;
 }
 
 @keyframes shimmer {
-  0% {
-    background-color: #e0e0e0;
-  }
-  50% {
-    background-color: #f0f0f0;
-  }
   100% {
-    background-color: #e0e0e0;
+    transform: translateX(100%);
   }
 }
 

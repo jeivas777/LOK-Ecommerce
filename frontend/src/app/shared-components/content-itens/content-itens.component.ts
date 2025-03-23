@@ -105,4 +105,8 @@ export class ContentItensComponent implements OnInit {
       queryParamsHandling: 'merge',
     });
   }
+
+  getImageBase(product: any): string {
+    return this.currentImage[product.id] || product.images?.[0] || '';
+  }
 }
