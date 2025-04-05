@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
-import { FooterComponent } from './shared-components/footer/footer.component';
-import { HeaderComponent } from './shared-components/header/header.component';
+import { FooterComponent } from './ecommerce/components/footer/footer.component';
+import { HeaderComponent } from './ecommerce/components/header/header.component';
 import { CommonModule, ViewportScroller } from '@angular/common';
 
 @Component({

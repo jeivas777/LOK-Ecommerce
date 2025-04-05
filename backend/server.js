@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const mysql = require("mysql2/promise");
 const cors = require("cors");
@@ -11,7 +12,7 @@ const dbConfig = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
+  port: parseInt(process.env.DB_PORT),
 };
 
 let connection;
@@ -31,10 +32,12 @@ app.use(async (req, res, next) => {
   }
 });
 
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:4200', 'https://seu-front-no-vercel.vercel.app'], // ou '*'
+}));
 app.use(bodyParser.json());
 app.use("/api", productRoutes);
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log("Servidor rodando...");
+  console.log("Servidor rodando na porta", process.env.PORT || 3000);
 });

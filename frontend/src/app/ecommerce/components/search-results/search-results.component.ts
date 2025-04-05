@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ContentItensComponent } from '../shared-components/content-itens/content-itens.component';
+import { ContentItensComponent } from '../content-itens/content-itens.component';
 
 @Component({
   selector: 'app-search-results',

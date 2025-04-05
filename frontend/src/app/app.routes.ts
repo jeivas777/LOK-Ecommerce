@@ -1,11 +1,11 @@
 // app.routes.ts
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { ProductPageComponent } from './product-page/product-page.component';
+import { HomeComponent } from './ecommerce/pages/home/home.component';
+import { ProductPageComponent } from './ecommerce/pages/product-page/product-page.component';
 import { NgModule } from '@angular/core';
-import { SearchResultsComponent } from './search-results/search-results.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { RegisterComponent } from './register/register.component';
+import { SearchResultsComponent } from './ecommerce/components/search-results/search-results.component';
+import { LoginPageComponent } from './ecommerce/pages/login-page/login-page.component';
+import { RegisterComponent } from './ecommerce/pages/register/register.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
