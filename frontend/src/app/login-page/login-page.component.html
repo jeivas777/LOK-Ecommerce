@@ -1,0 +1,49 @@
+<div class="content-container">
+  <div class="login-container">
+    <h1>Iniciar Sessão</h1>
+
+    <form
+      class="login-form"
+      action=""
+      #loginForm="ngForm"
+      (ngSubmit)="onSubmit(loginForm)"
+    >
+      <label class="label" for="">E-mail</label>
+      <input
+        class="input"
+        name="email"
+        id="email"
+        required
+        [(ngModel)]="email"
+        #emailRef="ngModel"
+      />
+      <app-error-message
+        [control]="emailRef"
+        fieldName="email"
+      ></app-error-message>
+
+      <label class="label" for="">Senha</label>
+      <input
+        class="input"
+        type="password"
+        name="senha"
+        id="senha"
+        required
+        [(ngModel)]="senha"
+        #senhaRef="ngModel"
+      />
+      <app-error-message
+        [control]="senhaRef"
+        fieldName="senha"
+      ></app-error-message>
+
+      <button class="recuperar-senha">Esqueci minha senha</button>
+
+      <button type="submit" class="btn-entrar">Entrar</button>
+    </form>
+
+    <button type="button" class="btn-cadastrar" routerLink="/account/register">
+      Registrar
+    </button>
+  </div>
+</div>
