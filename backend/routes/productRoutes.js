@@ -2,7 +2,6 @@ const express = require("express");
 const Product = require("../models/product");
 const router = express.Router();
 
-// Listar todos os produtos
 router.get("/products", async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
@@ -13,36 +12,53 @@ router.get("/products", async (req, res) => {
     let rows;
     let totalItems;
 
+    // Condição de estoque para PostgreSQL (usando ->> para acessar valores como texto)
     const stockCondition = `
-      (JSON_EXTRACT(stockBySize, '$.L') > 0 OR 
-       JSON_EXTRACT(stockBySize, '$.M') > 0 OR 
-       JSON_EXTRACT(stockBySize, '$.S') > 0 OR
-       JSON_EXTRACT(stockBySize, '$.XL') > 0)
+      (stockBySize->>'L'::text)::int > 0 OR
+      (stockBySize->>'M'::text)::int > 0 OR
+      (stockBySize->>'S'::text)::int > 0 OR
+      (stockBySize->>'XL'::text)::int > 0
     `;
 
     if (req.query.name) {
-      [rows] = await req.db.query(
-        `SELECT * FROM products WHERE name LIKE ? AND ${stockCondition} LIMIT ? OFFSET ?`,
-        [query, limit, offset]
-      );
+      const productsQuery = `
+        SELECT * FROM lokecommerce.products
+        WHERE name ILIKE $1 AND (${stockCondition})
+        LIMIT $2 OFFSET $3
+      `;
 
-      [[totalItems]] = await req.db.query(
-        `SELECT COUNT(*) AS totalItems FROM products WHERE name LIKE ? AND ${stockCondition}`,
-        [query]
-      );
+      const countQuery = `
+        SELECT COUNT(*) AS totalItems FROM lokecommerce.products
+        WHERE name ILIKE $1 AND (${stockCondition})
+      `;
+
+      const result = await req.db.query(productsQuery, [query, limit, offset]);
+      const count = await req.db.query(countQuery, [query]);
+
+      rows = result.rows;
+      totalItems = parseInt(count.rows[0].totalitems);
     } else {
-      [rows] = await req.db.query(
-        `SELECT * FROM products WHERE ${stockCondition} LIMIT ? OFFSET ?`,
-        [limit, offset]
-      );
+      const productsQuery = `
+        SELECT * FROM lokecommerce.products
+        WHERE (${stockCondition})
+        LIMIT $1 OFFSET $2
+      `;
 
-      [[totalItems]] = await req.db.query(
-        `SELECT COUNT(*) AS totalItems FROM products WHERE ${stockCondition}`
-      );
+      const countQuery = `
+        SELECT COUNT(*) AS totalItems FROM lokecommerce.products
+        WHERE (${stockCondition})
+      `;
+
+      const result = await req.db.query(productsQuery, [limit, offset]);
+      const count = await req.db.query(countQuery);
+
+      rows = result.rows;
+      totalItems = parseInt(count.rows[0].totalitems);
     }
 
-    res.json({ products: rows, totalItems: totalItems.totalItems });
+    res.json({ products: rows, totalItems });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: err.message });
   }
 });

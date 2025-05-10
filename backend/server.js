@@ -7,13 +7,12 @@ const productRoutes = require("./routes/productRoutes");
 
 const app = express();
 
+// Conexão com PostgreSQL via URL única
 const pool = new Pool({
-  host: process.env.DB_HOST, // Ex: dpg-xxxxxx
-  user: process.env.DB_USER, // Ex: lok_postgresql_user
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME, // Ex: lok_postgresql
-  port: parseInt(process.env.DB_PORT || "5432"),
-  ssl: true, // Render exige SSL para conexões externas
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false, // necessário para conexão externa com Render
+  },
 });
 
 app.use(async (req, res, next) => {
