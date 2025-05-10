@@ -66,11 +66,13 @@ router.get("/products", async (req, res) => {
 // Buscar um produto específico
 router.get("/products/:id", async (req, res) => {
   try {
-    const [[rows]] = await req.db.query(
-      "SELECT * FROM products WHERE ID = ?",
-      req.params.id
+    let rows;
+    const results = await req.db.query(
+      `SELECT * FROM lokecommerce.products WHERE ID = (${req.params.id})`
     );
-    res.json(rows);
+
+    rows = results.rows;
+    res.json({ products: rows });
   } catch (err) {
     res.status(404).json({ message: err.message });
   }

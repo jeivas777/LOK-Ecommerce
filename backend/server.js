@@ -8,7 +8,11 @@ const productRoutes = require("./routes/productRoutes");
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:59458", "http://localhost:59458", "https://lokecommerce.netlify.app"
+    origin: [
+      "http://localhost:59458",
+      "http://localhost:59458",
+      "https://lokecommerce.netlify.app",
+    ],
   })
 );
 
