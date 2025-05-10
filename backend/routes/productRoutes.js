@@ -63,18 +63,23 @@ router.get("/products", async (req, res) => {
   }
 });
 
-// Buscar um produto específico
 router.get("/products/:id", async (req, res) => {
   try {
-    let rows;
-    const results = await req.db.query(
-      `SELECT * FROM lokecommerce.products WHERE ID = (${req.params.id})`
+    const result = await req.db.query(
+      `SELECT * FROM lokecommerce.products WHERE id = $1`,
+      [req.params.id]
     );
 
-    rows = results.rows;
-    res.json({ products: rows });
+    const [product] = result.rows;
+
+    if (!product) {
+      return res.status(404).json({ message: "Produto não encontrado" });
+    }
+
+    res.json(product);
   } catch (err) {
-    res.status(404).json({ message: err.message });
+    console.error("Erro ao buscar produto:", err);
+    res.status(500).json({ message: "Erro interno no servidor" });
   }
 });
 
