@@ -6,6 +6,11 @@ const bodyParser = require("body-parser");
 const productRoutes = require("./routes/productRoutes");
 
 const app = express();
+app.use(
+  cors({
+    origin: "http://localhost:59458", "http://localhost:59458", "https://lokecommerce.netlify.app"
+  })
+);
 
 // Conexão com PostgreSQL via URL única
 const pool = new Pool({
@@ -25,11 +30,6 @@ app.use(async (req, res, next) => {
   }
 });
 
-app.use(
-  cors({
-    origin: ["http://localhost:4200", "https://seu-front-no-vercel.vercel.app"],
-  })
-);
 app.use(bodyParser.json());
 app.use("/api", productRoutes);
 
