@@ -14,10 +14,10 @@ router.get("/products", async (req, res) => {
 
     // Condição de estoque para PostgreSQL (usando ->> para acessar valores como texto)
     const stockCondition = `
-      (stockBySize->>'L'::text)::int > 0 OR
-      (stockBySize->>'M'::text)::int > 0 OR
-      (stockBySize->>'S'::text)::int > 0 OR
-      (stockBySize->>'XL'::text)::int > 0
+      ("stockBySize"->>'L'::text)::int > 0 OR
+      ("stockBySize"->>'M'::text)::int > 0 OR
+      ("stockBySize"->>'S'::text)::int > 0 OR
+      ("stockBySize"->>'XL'::text)::int > 0
     `;
 
     if (req.query.name) {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from '../../../enviroments/enviroments';
 
 export interface ProductResponse {
   products: Product[];
@@ -21,7 +22,7 @@ export interface Product {
   providedIn: 'root',
 })
 export class ProductService {
-  private productsEndpoint = 'https://lok-ecommerce.onrender.com/api/products';
+  private productsEndpoint = `${environment.apiUrl}/products`;
 
   constructor(private http: HttpClient) {}
 
