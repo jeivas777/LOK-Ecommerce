@@ -35,6 +35,7 @@ app.use(async (req, res, next) => {
 });
 
 app.use(bodyParser.json());
+app.use("/api/auth", authRoutes);
 app.use("/api", productRoutes);
 
 app.listen(process.env.PORT || 3000, () => {
