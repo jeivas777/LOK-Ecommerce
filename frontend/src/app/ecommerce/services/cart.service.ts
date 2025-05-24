@@ -37,8 +37,12 @@ export class CartService {
 
       this.cartProductsSubject.next(currentCart);
     } else {
-      const productCopy = {
+      const productCopy: CartProduct = {
         ...product,
+        price:
+          typeof product.price === 'string'
+            ? parseFloat(product.price)
+            : product.price,
         selectedSize: selectedSize,
         quantity: quantity,
       };
@@ -88,7 +92,6 @@ export class CartService {
       );
 
       if (productToUpdate) productToUpdate.quantity++;
-      console.log(this.cartProductsSubject.value);
     }
   }
 }

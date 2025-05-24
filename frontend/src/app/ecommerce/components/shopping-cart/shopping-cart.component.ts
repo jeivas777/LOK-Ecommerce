@@ -34,15 +34,11 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   calculateTotalPrice(): number {
-    let totalPrice = 0;
-
-    this.cartService.cartProducts$.subscribe((cartItens) => {
-      cartItens.forEach((element) => {
-        totalPrice += element.price;
-      });
-    });
-
-    return totalPrice;
+    return this.cartProducts.reduce((acc, item) => {
+      const price =
+        typeof item.price === 'string' ? parseFloat(item.price) : item.price;
+      return acc + (isNaN(price) ? 0 : price * item.quantity);
+    }, 0);
   }
 
   decrementQuantity(product: CartProduct) {

@@ -29,7 +29,6 @@ export class ProductPageComponent implements OnInit {
     if (productId) {
       this.productService.getProduct(productId).subscribe((res) => {
         this.product = res;
-        console.log(res);
         for (const [key, value] of Object.entries(this.product.stockBySize)) {
           if (value > 0) {
             if (this.availableSizes)
@@ -40,7 +39,6 @@ export class ProductPageComponent implements OnInit {
 
         if (this.product.images && !this.selectedImage) {
           this.selectedImage = this.product.images[0];
-          console.log(this.product.images);
         }
       });
     }
