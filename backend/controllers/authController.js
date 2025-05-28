@@ -1,42 +1,43 @@
+// backend/controllers/authController.js
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+const User = require("../models/User"); // Importa o modelo de usuário
+const db = require("../config/db"); // Importa a conexão com o banco de dados para queries diretas (como a de email)
 
 const register = async (req, res) => {
-  const { username, email, password } = req.body;
+  // Agora pegamos 'nome', 'cpf', 'email' e 'senha' do corpo da requisição
+  const { nome, cpf, email, senha } = req.body;
 
-  if (!username || !email || !password) {
+  // Validar se todos os campos obrigatórios estão presentes
+  if (!nome || !cpf || !email || !senha) {
     return res
       .status(400)
       .json({ message: "Todos os campos são obrigatórios." });
   }
 
   try {
-    // Verificar se o usuário já existe
-    const existingUserByUsername = await User.findByUsername(username);
-    if (existingUserByUsername) {
-      return res
-        .status(409)
-        .json({ message: "Nome de usuário já está em uso." });
-    }
-    const existingUserByEmail = await User.query(
-      "SELECT * FROM users WHERE email = $1",
-      [email]
-    );
+    // Verificar se o email já existe (usando db.query diretamente, como antes)
+    const existingUserByEmail = await User.findByEmail(email);
     if (existingUserByEmail.rows.length > 0) {
       return res.status(409).json({ message: "Email já está em uso." });
     }
 
-    // Hashing da senha
+    // Verificar se o CPF já existe (novo método findByCpf)
+    const existingUserByCpf = await User.findByCpf(cpf);
+    if (existingUserByCpf) {
+      return res.status(409).json({ message: "CPF já está em uso." });
+    }
+
+    // Hashing da senha (o nome da variável continua hashedSenha)
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedSenha = await bcrypt.hash(senha, salt);
 
-    // Criar novo usuário
-    const newUser = await User.create({ username, email, hashedPassword });
+    // Criar novo usuário, passando os novos campos e o hashedSenha para a coluna 'senha'
+    const newUser = await User.create({ nome, cpf, email, hashedSenha });
 
-    // Gerar JWT
+    // Gerar JWT: o payload agora usa 'nome' em vez de 'username'
     const token = jwt.sign(
-      { id: newUser.id, username: newUser.username },
+      { id: newUser.id, nome: newUser.nome }, // Usar 'nome' no payload do JWT
       process.env.JWT_SECRET,
       { expiresIn: "1h" } // Token expira em 1 hora
     );
@@ -45,7 +46,8 @@ const register = async (req, res) => {
       message: "Usuário registrado com sucesso!",
       user: {
         id: newUser.id,
-        username: newUser.username,
+        nome: newUser.nome, // Retornar 'nome'
+        cpf: newUser.cpf, // Retornar 'cpf'
         email: newUser.email,
       },
       token,
@@ -57,30 +59,26 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, senha } = req.body;
 
-  if (!username || !password) {
-    return res
-      .status(400)
-      .json({ message: "Nome de usuário e senha são obrigatórios." });
+  if (!email || !senha) {
+    return res.status(400).json({ message: "email e senha são obrigatórios." });
   }
 
   try {
-    // Encontrar usuário pelo nome de usuário
-    const user = await User.findByUsername(username);
+    const user = await User.findByEmail(email);
     if (!user) {
       return res.status(400).json({ message: "Credenciais inválidas." });
     }
 
-    // Comparar senha
-    const isMatch = await bcrypt.compare(password, user.password);
+    // Comparar a senha fornecida com o hash armazenado na coluna 'senha'
+    const isMatch = await bcrypt.compare(senha, user.senha); // ATENÇÃO: user.senha (coluna do banco)
     if (!isMatch) {
       return res.status(400).json({ message: "Credenciais inválidas." });
     }
 
-    // Gerar JWT
     const token = jwt.sign(
-      { id: user.id, username: user.username },
+      { id: user.id, email: user.email }, // Usar 'nome' no payload do JWT
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
@@ -89,7 +87,8 @@ const login = async (req, res) => {
       message: "Login realizado com sucesso!",
       user: {
         id: user.id,
-        username: user.username,
+        nome: user.nome, // Retornar 'nome'
+        cpf: user.cpf, // Retornar 'cpf'
         email: user.email,
       },
       token,
