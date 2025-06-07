@@ -21,6 +21,7 @@
         autocomplete="off"
         [(ngModel)]="cpf"
         #cpfRef="ngModel"
+        appCpfValidator
       />
       <app-error-message [control]="cpfRef" fieldName="cpf"></app-error-message>
 
@@ -50,6 +51,7 @@
         autocomplete="email"
         [(ngModel)]="email"
         #emailRef="ngModel"
+        appEmailValidator
       />
       <app-error-message
         [control]="emailRef"
@@ -59,11 +61,12 @@
       <label class="label" for="senha">Senha</label>
       <input
         class="input"
-        type="senha"
+        type="password"
         name="senha"
         id="senha"
         required
-        autocomplete="new-password"
+        minlength="8"
+        maxlength="20"
         [(ngModel)]="senha"
         #senhaRef="ngModel"
       />

@@ -8,27 +8,32 @@
       #loginForm="ngForm"
       (ngSubmit)="onSubmit(loginForm)"
     >
-      <label class="label" for="">E-mail</label>
+      <label class="label" for="email">E-mail</label>
       <input
         class="input"
+        type="email"
         name="email"
         id="email"
         required
+        autocomplete="email"
         [(ngModel)]="email"
         #emailRef="ngModel"
+        appEmailValidator
       />
       <app-error-message
         [control]="emailRef"
         fieldName="email"
       ></app-error-message>
 
-      <label class="label" for="">Senha</label>
+      <label class="label" for="senha">Senha</label>
       <input
         class="input"
         type="password"
         name="senha"
         id="senha"
         required
+        minlength="8"
+        maxlength="20"
         [(ngModel)]="senha"
         #senhaRef="ngModel"
       />

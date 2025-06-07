@@ -26,6 +26,12 @@ export class ErrorMessageComponent {
     if (this.control.errors['minlength']) {
       return `* O campo ${this.fieldName} deve ter pelo menos ${this.control.errors['minlength'].requiredLength} caracteres.`;
     }
+    if (this.control.errors['cpfInvalido']) {
+      return '* O CPF informado é inválido.';
+    }
+    if (this.control.errors['emailInvalido']) {
+      return '* O e-mail informado é inválido.';
+    }
 
     return null;
   }

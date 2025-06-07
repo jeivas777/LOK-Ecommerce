@@ -1,18 +1,15 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
+import { ErrorMessageComponent } from '../../ecommerce/components/error-message/error-message.component';
 
 @Component({
-  selector: 'app-register',
-  imports: [FormsModule, RouterModule, CommonModule, ErrorMessageComponent],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.scss',
+  selector: 'app-login-page',
+  imports: [RouterModule, FormsModule, ErrorMessageComponent],
+  templateUrl: './login-page.component.html',
+  styleUrl: './login-page.component.scss',
 })
-export class RegisterComponent {
-  cpf: string = '';
-  nome: string = '';
+export class LoginPageComponent {
   email: string = '';
   senha: string = '';
 

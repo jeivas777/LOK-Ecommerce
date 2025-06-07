@@ -5,17 +5,18 @@ import { Observable } from 'rxjs';
 
 export interface User {
   id: number;
-  name: string;
+  nome: string;
   email: string;
-  password: string;
+  senha: string;
+  cpf: string;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private registerEndpoint = `${environment.apiUrl}/register`;
-  private loginEndpoint = `${environment.apiUrl}/login`;
+  private registerEndpoint = `${environment.apiUrl}/auth/register`;
+  private loginEndpoint = `${environment.apiUrl}/auth/login`;
 
   constructor(private http: HttpClient) {}
 

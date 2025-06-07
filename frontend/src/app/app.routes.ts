@@ -4,8 +4,8 @@ import { HomeComponent } from './ecommerce/pages/home/home.component';
 import { ProductPageComponent } from './ecommerce/pages/product-page/product-page.component';
 import { NgModule } from '@angular/core';
 import { SearchResultsComponent } from './ecommerce/components/search-results/search-results.component';
-import { LoginPageComponent } from './ecommerce/pages/login-page/login-page.component';
-import { RegisterComponent } from './ecommerce/pages/register/register.component';
+import { LoginPageComponent } from './auth/login/login-page.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },

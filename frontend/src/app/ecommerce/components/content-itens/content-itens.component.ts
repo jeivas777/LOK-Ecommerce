@@ -3,6 +3,7 @@ import { ProductService, Product } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { map, Observable, tap } from 'rxjs';
+import { CarouselModule } from 'primeng/carousel';
 
 @Component({
   selector: 'app-content-itens',
