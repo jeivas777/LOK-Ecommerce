@@ -9,21 +9,16 @@ const protect = async (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     try {
-      // Obter token do cabeçalho
       token = req.headers.authorization.split(" ")[1];
 
-      // Verificar token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      // Anexar usuário à requisição (sem a senha)
       req.user = await User.findById(decoded.id);
 
       if (!req.user) {
-        return res
-          .status(401)
-          .json({
-            message: "Não autorizado, token falhou (usuário não encontrado).",
-          });
+        return res.status(401).json({
+          message: "Não autorizado, token falhou (usuário não encontrado).",
+        });
       }
 
       next(); // Continuar para a próxima função middleware/rota

@@ -17,7 +17,6 @@
         required
         minlength="11"
         maxlength="14"
-        pattern="\d{11}"
         autocomplete="off"
         [(ngModel)]="cpf"
         #cpfRef="ngModel"
@@ -32,7 +31,6 @@
         name="nome"
         id="nome"
         required
-        autocomplete="name"
         [(ngModel)]="nome"
         #nomeRef="ngModel"
       />
@@ -48,7 +46,6 @@
         name="email"
         id="email"
         required
-        autocomplete="email"
         [(ngModel)]="email"
         #emailRef="ngModel"
         appEmailValidator
@@ -75,7 +72,9 @@
         fieldName="senha"
       ></app-error-message>
 
-      <button type="submit" class="btn-entrar">Cadastrar</button>
+      <button type="submit" class="btn-entrar" [disabled]="loading">
+        Cadastrar
+      </button>
     </form>
   </div>
 </div>

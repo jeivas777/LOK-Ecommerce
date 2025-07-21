@@ -1,0 +1,21 @@
+<section class="user-section">
+  <div class="menu-user">
+    <nav class="nav-user">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a [routerLink]="['']">Dados Pessoais</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['enderecos']">Endereços</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['pedidos']">Pedidos</a>
+        </li>
+        <li class="nav-item">
+          <a>Sair</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <router-outlet></router-outlet>
+</section>

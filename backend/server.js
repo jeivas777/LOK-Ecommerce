@@ -5,6 +5,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const authRoutes = require("./routes/authRoutes"); // Verifique o caminho
 const productRoutes = require("./routes/productRoutes"); // Verifique o caminho
+const enderecoRoutes = require("./routes/enderecoRoutes"); // Verifique o caminho
 const db = require("./config/db"); // Importa o módulo db para que a conexão seja inicializada
 
 const app = express();
@@ -19,24 +20,12 @@ app.use(
   })
 );
 
-// Middleware para parsear JSON no corpo da requisição
 app.use(bodyParser.json());
 
-// Remova o middleware que injetava req.db = pool;
-// app.use(async (req, res, next) => {
-//   try {
-//     req.db = pool;
-//     next();
-//   } catch (err) {
-//     console.error("Erro ao conectar ao PostgreSQL", err);
-//     res.status(500).json({ error: "Erro ao conectar ao PostgreSQL" });
-//   }
-// });
-
-// Rotas de autenticação
+// Rotas
 app.use("/api/auth", authRoutes);
-// Rotas de produtos
 app.use("/api", productRoutes);
+app.use("/api/endereco", enderecoRoutes);
 
 // Rota de teste
 app.get("/", (req, res) => {

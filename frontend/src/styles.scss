@@ -28,3 +28,40 @@ h3 {
 p {
   font-size: 1rem;
 }
+
+input {
+  background-color: white;
+  color: #333333;
+  border: 1px solid #333333;
+  /* Adicione uma transição para suavizar a mudança de estilo */
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+input:focus {
+  outline: none;
+}
+
+/*
+  Solução completa para sobrescrever o estilo de autofill do navegador
+  sem quebrar os estilos de foco ou o cursor de texto.
+*/
+
+/* 1. Mantém a transição longa APENAS no estado de autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* 2. Aplica o truque do box-shadow e define a cor do texto e do cursor */
+input:-webkit-autofill {
+  /* Define a cor de fundo desejada usando o box-shadow */
+  -webkit-box-shadow: 0 0 0 30px white inset !important; /* Mude 'white' para a cor de fundo do seu input */
+
+  /* Define a cor do texto */
+  -webkit-text-fill-color: #000 !important; /* Mude para a cor do seu texto */
+
+  /* Força a cor do cursor (caret) a ser a mesma do texto */
+  caret-color: #000 !important; /* Mude para a cor do seu texto/cursor */
+}

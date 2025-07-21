@@ -15,7 +15,6 @@
         name="email"
         id="email"
         required
-        autocomplete="email"
         [(ngModel)]="email"
         #emailRef="ngModel"
         appEmailValidator
@@ -44,7 +43,9 @@
 
       <button class="recuperar-senha">Esqueci minha senha</button>
 
-      <button type="submit" class="btn-entrar">Entrar</button>
+      <button type="submit" class="btn-entrar" [disabled]="loading">
+        Entrar
+      </button>
     </form>
 
     <button type="button" class="btn-cadastrar" routerLink="/account/register">

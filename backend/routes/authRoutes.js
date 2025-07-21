@@ -7,9 +7,7 @@ const router = express.Router();
 router.post("/register", register);
 router.post("/login", login);
 
-// Exemplo de rota protegida
 router.get("/profile", protect, async (req, res) => {
-  // req.user estará disponível aqui devido ao middleware 'protect'
   res.json({
     message: "Acesso ao perfil concedido!",
     user: req.user,

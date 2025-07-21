@@ -18,7 +18,7 @@ const register = async (req, res) => {
   try {
     // Verificar se o email já existe (usando db.query diretamente, como antes)
     const existingUserByEmail = await User.findByEmail(email);
-    if (existingUserByEmail.rows.length > 0) {
+    if (existingUserByEmail && existingUserByEmail.rows.length > 0) {
       return res.status(409).json({ message: "Email já está em uso." });
     }
 
@@ -31,15 +31,14 @@ const register = async (req, res) => {
     // Hashing da senha (o nome da variável continua hashedSenha)
     const salt = await bcrypt.genSalt(10);
     const hashedSenha = await bcrypt.hash(senha, salt);
+    console.log("Senha hasheada:", hashedSenha); // Log para verificar o hash da senha
 
-    // Criar novo usuário, passando os novos campos e o hashedSenha para a coluna 'senha'
     const newUser = await User.create({ nome, cpf, email, hashedSenha });
 
-    // Gerar JWT: o payload agora usa 'nome' em vez de 'username'
     const token = jwt.sign(
-      { id: newUser.id, nome: newUser.nome }, // Usar 'nome' no payload do JWT
+      { id: newUser.id, email: newUser.email }, // Usar 'nome' no payload do JWT
       process.env.JWT_SECRET,
-      { expiresIn: "1h" } // Token expira em 1 hora
+      { expiresIn: "1h" }
     );
 
     res.status(201).json({

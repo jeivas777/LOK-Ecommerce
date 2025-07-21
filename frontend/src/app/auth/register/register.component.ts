@@ -9,6 +9,8 @@ import { AuthService, User } from '../auth.service';
 import { CpfValidatorDirective } from '../../validators/cpf.directive';
 import { EmailValidatorDirective } from '../../validators/email.directive';
 
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-register',
   imports: [
@@ -27,10 +29,16 @@ export class RegisterComponent {
   nome: string = '';
   email: string = '';
   senha: string = '';
+  loading: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   onSubmit(form: NgForm) {
+    this.loading = true;
     const user: User = {
       cpf: this.cpf,
       nome: this.nome,
@@ -38,19 +46,30 @@ export class RegisterComponent {
       senha: this.senha,
       id: 0,
     };
-    if (form.valid) {
-      this.authService.register(user).subscribe((res) => {
-        console.log('Usuário registrado com sucesso', res);
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 2000);
-      });
-    } else {
+
+    if (!form.valid) {
       this.markAllFieldsAsTouched(form);
-      console.log(
-        'Falha ao realizar login. Preencha os campos obrigatórios e tente novamente'
-      );
+      return;
     }
+
+    this.authService.register(user).subscribe({
+      next: (res) => {
+        this.toastr.success('Cadastro realizado com sucesso!', 'Bem-vindo(a)!');
+
+        setTimeout(() => {
+          this.router.navigate(['/account/login']);
+          this.loading = false;
+        }, 1000);
+      },
+      error: (err) => {
+        this.toastr.error(
+          'Não foi possível realizar o cadastro. Tente novamente.',
+          'Erro!'
+        );
+
+        console.error('Falha no cadastro', err);
+      },
+    });
   }
 
   markAllFieldsAsTouched(form: NgForm) {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService, Product } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
-import { map, Observable, tap } from 'rxjs';
+import { finalize, map, Observable, tap } from 'rxjs';
 import { CarouselModule } from 'primeng/carousel';
 
 @Component({
@@ -59,12 +59,11 @@ export class ContentItensComponent implements OnInit {
         this.pages = this.getPages();
         this.totalItems = res.totalItems;
       }),
-      map((res) => res.products) // Aqui estamos extraindo a propriedade `products`
+      map((res) => res.products),
+      finalize(() => {
+        this.isLoading = false; // Define como false quando a requisição COMPLETA (sucesso ou erro)
+      })
     );
-
-    this.products$.subscribe((res) => {
-      this.isLoading = false;
-    });
   }
 
   formatName(name: string): string {

@@ -1,7 +1,6 @@
 // backend/routes/productRoutes.js
 const express = require("express");
 const db = require("../config/db"); // <--- Importe o db aqui!
-// const Product = require("../models/Product"); // Se você tiver um modelo Product.js, ele deve importar db internamente.
 
 const router = express.Router();
 
@@ -17,21 +16,21 @@ router.get("/products", async (req, res) => {
 
     // Condição de estoque para PostgreSQL (usando ->> para acessar valores como texto)
     const stockCondition = `
-            ("stockBySize"->>'L'::text)::int > 0 OR
-            ("stockBySize"->>'M'::text)::int > 0 OR
-            ("stockBySize"->>'S'::text)::int > 0 OR
-            ("stockBySize"->>'XL'::text)::int > 0
+            (stockBySize->>'L'::text)::int > 0 OR
+            (stockBySize->>'M'::text)::int > 0 OR
+            (stockBySize->>'S'::text)::int > 0 OR
+            (stockBySize->>'XL'::text)::int > 0
         `;
 
     if (req.query.name) {
       const productsQuery = `
-                SELECT * FROM lokecommerce.products
+                SELECT * FROM products
                 WHERE name ILIKE $1 AND (${stockCondition})
                 LIMIT $2 OFFSET $3
             `;
 
       const countQuery = `
-                SELECT COUNT(*) AS totalItems FROM lokecommerce.products
+                SELECT COUNT(*) AS totalItems FROM products
                 WHERE name ILIKE $1 AND (${stockCondition})
             `;
 
@@ -43,13 +42,13 @@ router.get("/products", async (req, res) => {
       totalItems = parseInt(count.rows[0].totalitems);
     } else {
       const productsQuery = `
-                SELECT * FROM lokecommerce.products
+                SELECT * FROM products
                 WHERE (${stockCondition})
                 LIMIT $1 OFFSET $2
             `;
 
       const countQuery = `
-                SELECT COUNT(*) AS totalItems FROM lokecommerce.products
+                SELECT COUNT(*) AS totalItems FROM products
                 WHERE (${stockCondition})
             `;
 
@@ -71,10 +70,9 @@ router.get("/products", async (req, res) => {
 router.get("/products/:id", async (req, res) => {
   try {
     // Use db.query em vez de req.db.query
-    const result = await db.query(
-      `SELECT * FROM lokecommerce.products WHERE id = $1`,
-      [req.params.id]
-    );
+    const result = await db.query(`SELECT * FROM products WHERE id = $1`, [
+      req.params.id,
+    ]);
 
     const [product] = result.rows;
 
