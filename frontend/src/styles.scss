@@ -65,3 +65,8 @@ input:-webkit-autofill {
   /* Força a cor do cursor (caret) a ser a mesma do texto */
   caret-color: #000 !important; /* Mude para a cor do seu texto/cursor */
 }
+
+ul {
+  text-decoration: none;
+  list-style: none;
+}

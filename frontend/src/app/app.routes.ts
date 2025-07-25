@@ -21,7 +21,7 @@ export const routes: Routes = [
   {
     path: 'account',
     component: ContaComponent,
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     children: [
       { path: '', component: DadosPessoaisComponent },
       {
