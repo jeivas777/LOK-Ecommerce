@@ -56,6 +56,7 @@ export class RegisterComponent {
 
     this.authService.register(user).subscribe({
       next: (res) => {
+        console.log(form);
         this.toastr.success('Cadastro realizado com sucesso!', 'Bem-vindo(a)!');
 
         setTimeout(() => {
@@ -70,6 +71,7 @@ export class RegisterComponent {
         );
 
         console.error('Falha no cadastro', err);
+        this.loading = false;
       },
     });
   }

@@ -64,7 +64,6 @@
         required
         [(ngModel)]="telefone"
         #telefoneRef="ngModel"
-        appEmailValidator
       />
       <app-error-message
         [control]="telefoneRef"
@@ -88,7 +87,7 @@
         fieldName="senha"
       ></app-error-message>
 
-      <button type="submit" class="btn-entrar" [disabled]="loading">
+      <button type="submit" class="submit-button mt-4" [disabled]="loading">
         Cadastrar
       </button>
     </form>

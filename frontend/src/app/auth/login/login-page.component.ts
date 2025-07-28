@@ -52,6 +52,7 @@ export class LoginPageComponent {
         );
 
         console.error('Erro ao fazer login:', err.message);
+        this.loading = false;
       },
     });
   }
