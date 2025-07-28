@@ -6,10 +6,10 @@ const db = require("../config/db"); // Importa a conexão com o banco de dados p
 
 const register = async (req, res) => {
   // Agora pegamos 'nome', 'cpf', 'email' e 'senha' do corpo da requisição
-  const { nome, cpf, email, senha } = req.body;
+  const { nome, cpf, email, senha, telefone } = req.body;
 
   // Validar se todos os campos obrigatórios estão presentes
-  if (!nome || !cpf || !email || !senha) {
+  if (!nome || !cpf || !email || !senha || !telefone) {
     return res
       .status(400)
       .json({ message: "Todos os campos são obrigatórios." });
@@ -48,6 +48,7 @@ const register = async (req, res) => {
         nome: newUser.nome, // Retornar 'nome'
         cpf: newUser.cpf, // Retornar 'cpf'
         email: newUser.email,
+        telefone: newUser.telefone, // Retornar 'telefone'
       },
       token,
     });
@@ -89,6 +90,7 @@ const login = async (req, res) => {
         nome: user.nome, // Retornar 'nome'
         cpf: user.cpf, // Retornar 'cpf'
         email: user.email,
+        telefone: user.telefone, // Retornar 'telefone'
       },
       token,
     });

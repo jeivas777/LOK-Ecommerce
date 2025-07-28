@@ -1,3 +1,158 @@
-<section class="main-container">
-  <h2>Dados Pessoais</h2>
+<section class="main-section">
+  <div class="container">
+    <h2 class="mb-4">Dados Pessoais</h2>
+    <form [formGroup]="dadosPessoaisForm" (ngSubmit)="onSubmit()" class="grid">
+      <div class="row">
+        <div class="mb-3 d-flex flex-column col">
+          <label for="nome">Nome:</label>
+          <input
+            id="nome"
+            type="text"
+            formControlName="nome"
+            [ngClass]="{
+              'is-invalid':
+                dadosPessoaisForm.get('nome')?.invalid &&
+                dadosPessoaisForm.get('nome')?.touched
+            }"
+          />
+          <div
+            *ngIf="
+              dadosPessoaisForm.get('nome')?.invalid &&
+              dadosPessoaisForm.get('nome')?.touched
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="dadosPessoaisForm.get('nome')?.errors?.['required']">
+              O nome é obrigatório.
+            </div>
+            <div *ngIf="dadosPessoaisForm.get('nome')?.errors?.['minlength']">
+              O nome precisa ter no mínimo 3 caracteres.
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 d-flex flex-column col">
+          <label for="cpf">CPF:</label>
+          <input
+            id="cpf"
+            type="text"
+            formControlName="cpf"
+            [ngClass]="{
+              'is-invalid':
+                dadosPessoaisForm.get('cpf')?.invalid &&
+                dadosPessoaisForm.get('cpf')?.touched
+            }"
+          />
+          <div
+            *ngIf="
+              dadosPessoaisForm.get('cpf')?.invalid &&
+              dadosPessoaisForm.get('cpf')?.touched
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="dadosPessoaisForm.get('cpf')?.errors?.['required']">
+              O CPF é obrigatório.
+            </div>
+            <div *ngIf="dadosPessoaisForm.get('cpf')?.errors?.['pattern']">
+              O CPF é não está incorreto.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="mb-3 d-flex flex-column col">
+          <label for="email">E-mail:</label>
+          <input
+            id="email"
+            type="text"
+            formControlName="email"
+            [ngClass]="{
+              'is-invalid':
+                dadosPessoaisForm.get('email')?.invalid &&
+                dadosPessoaisForm.get('email')?.touched
+            }"
+          />
+          <div
+            *ngIf="
+              dadosPessoaisForm.get('email')?.invalid &&
+              dadosPessoaisForm.get('email')?.touched
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="dadosPessoaisForm.get('email')?.errors?.['required']">
+              O e-mail é obrigatório.
+            </div>
+            <div *ngIf="dadosPessoaisForm.get('email')?.errors?.['email']">
+              E-mail incorreto.
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 d-flex flex-column col">
+          <label for="telefone">Telefone:</label>
+          <input
+            id="telefone"
+            type="text"
+            formControlName="telefone"
+            [ngClass]="{
+              'is-invalid':
+                dadosPessoaisForm.get('telefone')?.invalid &&
+                dadosPessoaisForm.get('telefone')?.touched
+            }"
+          />
+          <div
+            *ngIf="
+              dadosPessoaisForm.get('telefone')?.invalid &&
+              dadosPessoaisForm.get('telefone')?.touched
+            "
+            class="invalid-feedback"
+          >
+            <div
+              *ngIf="dadosPessoaisForm.get('telefone')?.errors?.['required']"
+            >
+              O telefone é obrigatório.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="mb-3 d-flex flex-column col-6">
+          <label for="senha">Senha:</label>
+          <input
+            id="senha"
+            type="password"
+            formControlName="senha"
+            [ngClass]="{
+              'is-invalid':
+                dadosPessoaisForm.get('senha')?.invalid &&
+                dadosPessoaisForm.get('senha')?.touched
+            }"
+          />
+          <div
+            *ngIf="
+              dadosPessoaisForm.get('senha')?.invalid &&
+              dadosPessoaisForm.get('senha')?.touched
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="dadosPessoaisForm.get('senha')?.errors?.['required']">
+              A senha é obrigatória.
+            </div>
+            <div *ngIf="dadosPessoaisForm.get('senha')?.errors?.['pattern']">
+              A senha deve ter no mínimo 6 caracteres.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-end">
+        <div class="button-container col-3">
+          <button
+            type="submit"
+            [disabled]="dadosPessoaisForm.invalid"
+            class="submit-button w-100"
+          >
+            Salvar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
 </section>

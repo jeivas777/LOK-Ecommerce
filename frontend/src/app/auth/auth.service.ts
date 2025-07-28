@@ -10,6 +10,7 @@ export interface User {
   email: string;
   senha: string;
   cpf: string;
+  telefone: string;
 }
 
 @Injectable({

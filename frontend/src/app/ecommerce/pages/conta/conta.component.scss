@@ -1,3 +1,7 @@
+.main-section {
+  min-height: 100vh;
+}
+
 .user-section {
   display: flex;
   max-width: 1200px;
@@ -7,13 +11,14 @@
 
 .menu-user {
   display: flex;
-  border-left: 2px solid #333333;
+
   box-sizing: border-box;
 }
 
 .menu-user .nav-user ul {
   text-decoration: none;
   list-style: none;
+  border-left: 2px solid #333333;
 }
 
 .menu-user .nav-user ul {
@@ -68,4 +73,9 @@
 
 .active-parent {
   background-color: #333333;
+}
+
+.main-content {
+  flex: 1;
+  padding-left: 24px;
 }

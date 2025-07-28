@@ -1,49 +1,51 @@
-<h2 class="section-name">Minha conta</h2>
-<section class="user-section">
-  <div class="menu-user">
-    <nav class="nav-user">
-      <ul class="nav-list">
-        <li
-          class="nav-item"
-          [routerLink]="['/account']"
-          routerLinkActive="active-parent"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <a
-            routerLinkActive="active"
+<section class="main-section">
+  <h2 class="section-name">Minha conta</h2>
+  <section class="user-section">
+    <div class="menu-user">
+      <nav class="nav-user">
+        <ul class="nav-list">
+          <li
+            class="nav-item"
+            [routerLink]="['/account']"
+            routerLinkActive="active-parent"
             [routerLinkActiveOptions]="{ exact: true }"
-            >Dados Pessoais</a
           >
-        </li>
-        <li
-          class="nav-item"
-          [routerLink]="['enderecos']"
-          routerLinkActive="active-parent"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <a
-            routerLinkActive="active"
+            <a
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >Dados Pessoais</a
+            >
+          </li>
+          <li
+            class="nav-item"
+            [routerLink]="['enderecos']"
+            routerLinkActive="active-parent"
             [routerLinkActiveOptions]="{ exact: true }"
-            >Endereços</a
           >
-        </li>
-        <li
-          class="nav-item"
-          [routerLink]="['pedidos']"
-          routerLinkActive="active-parent"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <a
-            routerLinkActive="active"
+            <a
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >Endereços</a
+            >
+          </li>
+          <li
+            class="nav-item"
+            [routerLink]="['pedidos']"
+            routerLinkActive="active-parent"
             [routerLinkActiveOptions]="{ exact: true }"
-            >Pedidos</a
           >
-        </li>
-        <li class="nav-item" [routerLink]="['']">
-          <a>Sair</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-  <router-outlet></router-outlet>
+            <a
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >Pedidos</a
+            >
+          </li>
+          <li class="nav-item" [routerLink]="['']">
+            <a>Sair</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="main-content"><router-outlet></router-outlet></div>
+  </section>
 </section>

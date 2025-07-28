@@ -29,6 +29,7 @@ export class RegisterComponent {
   nome: string = '';
   email: string = '';
   senha: string = '';
+  telefone: string = '';
   loading: boolean = false;
 
   constructor(
@@ -44,6 +45,7 @@ export class RegisterComponent {
       nome: this.nome,
       email: this.email,
       senha: this.senha,
+      telefone: this.telefone,
       id: 0,
     };
 

@@ -55,6 +55,22 @@
         fieldName="email"
       ></app-error-message>
 
+      <label class="label" for="telefone">Telefone</label>
+      <input
+        class="input"
+        type="tel"
+        name="telefone"
+        id="telefone"
+        required
+        [(ngModel)]="telefone"
+        #telefoneRef="ngModel"
+        appEmailValidator
+      />
+      <app-error-message
+        [control]="telefoneRef"
+        fieldName="telefone"
+      ></app-error-message>
+
       <label class="label" for="senha">Senha</label>
       <input
         class="input"
