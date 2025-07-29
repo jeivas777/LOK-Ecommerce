@@ -30,6 +30,7 @@ export class ProductPageComponent implements OnInit {
     const productId = this.route.snapshot.paramMap.get('id');
     if (productId) {
       this.productService.getProduct(productId).subscribe((res) => {
+        console.log('Product fetched:', res);
         this.product = res;
         for (const [key, value] of Object.entries(this.product.stockBySize)) {
           if (value > 0) {

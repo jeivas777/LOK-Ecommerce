@@ -55,6 +55,7 @@ export class ContentItensComponent implements OnInit {
   fetchProducts(page: number, limit: number, query: string = ''): void {
     this.products$ = this.productService.getProducts(page, limit, query).pipe(
       tap((res) => {
+        console.log('Product fetched:', res);
         this.totalPages = Math.ceil(res.totalItems / this.limit); // Calculate total pages
         this.pages = this.getPages();
         this.totalItems = res.totalItems;
