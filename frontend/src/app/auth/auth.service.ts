@@ -17,21 +17,29 @@ export interface User {
   providedIn: 'root',
 })
 export class AuthService {
-  private registerEndpoint = `${environment.apiUrl}/auth/register`;
-  private loginEndpoint = `${environment.apiUrl}/auth/login`;
+  private baseEndpoint = `${environment.apiUrl}/auth`;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   register(user: User): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(this.registerEndpoint, user);
+    return this.http.post<{ token: string }>(
+      `${this.baseEndpoint}/register`,
+      user
+    );
   }
 
   login(email: string, senha: string): Observable<{ token: string }> {
     const user = { email, senha };
-    return this.http.post<{ token: string }>(this.loginEndpoint, user).pipe(
-      tap((res: any) => {
-        localStorage.setItem('auth_token', res.token);
-      })
-    );
+    return this.http
+      .post<{ token: string }>(`${this.baseEndpoint}/login`, user)
+      .pipe(
+        tap((res: any) => {
+          localStorage.setItem('auth_token', res.token);
+        })
+      );
+  }
+
+  update(id: number, newUser: User): Observable<User> {
+    return this.http.put<User>(`${this.baseEndpoint}/update/${id}`, newUser);
   }
 }

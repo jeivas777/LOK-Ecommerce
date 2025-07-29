@@ -8,6 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../../auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dados-pessoais',
@@ -17,8 +19,13 @@ import { CommonModule } from '@angular/common';
 })
 export class DadosPessoaisComponent implements OnInit {
   dadosPessoaisForm!: FormGroup;
+  loading = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private userService: AuthService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.dadosPessoaisForm = this.fb.group({
@@ -32,11 +39,30 @@ export class DadosPessoaisComponent implements OnInit {
 
   onSubmit() {
     if (this.dadosPessoaisForm?.valid) {
-      const formData = this.dadosPessoaisForm.value;
-      console.log('Dados do Formulário:', formData);
-    } else {
       this.dadosPessoaisForm.markAllAsTouched();
       return;
     }
+
+    this.loading = true;
+
+    const newUser = this.dadosPessoaisForm.value;
+
+    // Pegar id do usuário logado
+
+    // // Chamar PUT User
+    // this.userService.update(id, newUser).subscribe({
+    //   next: (res) => {
+    //     this.toastr.success('Usuário alterado com sucesso');
+
+    //     this.loading = false;
+    //   },
+    //   error: (err) => {
+    //     this.toastr.error('Erro ao alterar usuário');
+
+    //     console.error('Erro ao alterar dados pessoais', err);
+
+    //     this.loading = false;
+    //   },
+    // });
   }
 }
