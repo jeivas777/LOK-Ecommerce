@@ -31,8 +31,6 @@
         name="senha"
         id="senha"
         required
-        minlength="8"
-        maxlength="20"
         [(ngModel)]="senha"
         #senhaRef="ngModel"
       />
@@ -43,7 +41,7 @@
 
       <button class="recuperar-senha">Esqueci minha senha</button>
 
-      <button type="submit" class="submit-button" [disabled]="loading">
+      <button type="submit" class="submit-button mt-4" [disabled]="loading">
         Entrar
       </button>
     </form>

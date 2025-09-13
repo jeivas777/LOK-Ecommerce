@@ -4,14 +4,14 @@ version: "3.8"
 services:
   db:
     image: postgres:15
-    container_name: postgres_local_dev
+    container_name: lok-local-db
     restart: always
     environment:
-      POSTGRES_USER: testuser
-      POSTGRES_PASSWORD: testpassword
-      POSTGRES_DB: testdb
+      POSTGRES_USER: joaov
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: lok-local-db
     ports:
-      - "5432:5432"
+      - "5434:5432"
     volumes:
       - postgres_dev_data:/var/lib/postgresql/data
 

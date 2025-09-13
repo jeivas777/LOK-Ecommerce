@@ -35,6 +35,10 @@ export class DadosPessoaisComponent implements OnInit {
       cpf: ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
       senha: ['', [Validators.required, Validators.minLength(6)]],
     });
+
+    this.userService.getUser().subscribe((res) => {
+      console.log(res);
+    });
   }
 
   onSubmit() {

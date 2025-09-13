@@ -39,11 +39,11 @@ export class AuthService {
       );
   }
 
-  edit(id: number, newUser: User): Observable<User> {
+  edit(newUser: User): Observable<User> {
     return this.http.put<User>(`${this.baseEndpoint}/user/me`, newUser);
   }
 
-  getUser(id: number): Observable<User> {
+  getUser(): Observable<User> {
     return this.http.get<User>(`${this.baseEndpoint}/user/me`);
   }
 
