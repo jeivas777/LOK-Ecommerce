@@ -17,13 +17,13 @@ export interface User {
   providedIn: 'root',
 })
 export class AuthService {
-  private baseEndpoint = `${environment.apiUrl}/auth`;
+  private baseEndpoint = `${environment.apiUrl}`;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   register(user: User): Observable<{ token: string }> {
     return this.http.post<{ token: string }>(
-      `${this.baseEndpoint}/register`,
+      `${this.baseEndpoint}/auth/register`,
       user
     );
   }
@@ -31,7 +31,7 @@ export class AuthService {
   login(email: string, senha: string): Observable<{ token: string }> {
     const user = { email, senha };
     return this.http
-      .post<{ token: string }>(`${this.baseEndpoint}/login`, user)
+      .post<{ token: string }>(`${this.baseEndpoint}/auth/login`, user)
       .pipe(
         tap((res: any) => {
           localStorage.setItem('auth_token', res.token);
@@ -39,7 +39,16 @@ export class AuthService {
       );
   }
 
-  update(id: number, newUser: User): Observable<User> {
-    return this.http.put<User>(`${this.baseEndpoint}/update/${id}`, newUser);
+  edit(id: number, newUser: User): Observable<User> {
+    return this.http.put<User>(`${this.baseEndpoint}/user/me`, newUser);
+  }
+
+  getUser(id: number): Observable<User> {
+    return this.http.get<User>(`${this.baseEndpoint}/user/me`);
+  }
+
+  logout(): void {
+    localStorage.removeItem('auth_token');
+    this.router.navigate(['/login']);
   }
 }

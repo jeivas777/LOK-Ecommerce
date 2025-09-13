@@ -3,10 +3,10 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const authRoutes = require("./routes/authRoutes"); // Verifique o caminho
-const productRoutes = require("./routes/productRoutes"); // Verifique o caminho
-const enderecoRoutes = require("./routes/enderecoRoutes"); // Verifique o caminho
-const db = require("./config/db"); // Importa o módulo db para que a conexão seja inicializada
+const authRoutes = require("./routes/authRoutes");
+const productRoutes = require("./routes/productRoutes");
+const enderecoRoutes = require("./routes/enderecoRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
@@ -25,6 +25,7 @@ app.use(bodyParser.json());
 // Rotas
 app.use("/api/auth", authRoutes);
 app.use("/api", productRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/endereco", enderecoRoutes);
 
 // Rota de teste

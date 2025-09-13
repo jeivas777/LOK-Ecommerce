@@ -1,12 +1,12 @@
 require("dotenv").config();
 const { Pool } = require("pg");
 
+const isProduction = process.env.NODE_ENV === "production";
+
 // Conexão com PostgreSQL via URL única
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  ssl: isProduction ? { rejectUnauthorized: false } : false,
 });
 
 pool.on("error", (err) => {

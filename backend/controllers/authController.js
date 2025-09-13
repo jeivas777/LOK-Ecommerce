@@ -18,7 +18,7 @@ const register = async (req, res) => {
   try {
     // Verificar se o email já existe (usando db.query diretamente, como antes)
     const existingUserByEmail = await User.findByEmail(email);
-    if (existingUserByEmail && existingUserByEmail.rows.length > 0) {
+    if (existingUserByEmail) {
       return res.status(409).json({ message: "Email já está em uso." });
     }
 
