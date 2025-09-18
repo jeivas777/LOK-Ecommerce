@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-conta',
@@ -13,4 +14,11 @@ export class ContaComponent {
     enderecos: false,
     pedidos: false,
   };
+
+  constructor(private authService: AuthService) {}
+
+  logout() {
+    console.log('logout');
+    this.authService.logout();
+  }
 }

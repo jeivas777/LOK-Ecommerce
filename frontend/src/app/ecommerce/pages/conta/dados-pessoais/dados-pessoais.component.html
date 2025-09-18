@@ -113,35 +113,6 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="mb-3 d-flex flex-column col-6">
-          <label for="senha">Senha:</label>
-          <input
-            id="senha"
-            type="password"
-            formControlName="senha"
-            [ngClass]="{
-              'is-invalid':
-                dadosPessoaisForm.get('senha')?.invalid &&
-                dadosPessoaisForm.get('senha')?.touched
-            }"
-          />
-          <div
-            *ngIf="
-              dadosPessoaisForm.get('senha')?.invalid &&
-              dadosPessoaisForm.get('senha')?.touched
-            "
-            class="invalid-feedback"
-          >
-            <div *ngIf="dadosPessoaisForm.get('senha')?.errors?.['required']">
-              A senha é obrigatória.
-            </div>
-            <div *ngIf="dadosPessoaisForm.get('senha')?.errors?.['pattern']">
-              A senha deve ter no mínimo 6 caracteres.
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="row justify-content-end">
         <div class="button-container col-3">
           <button
