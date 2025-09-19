@@ -19,7 +19,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class DadosPessoaisComponent implements OnInit {
   dadosPessoaisForm!: FormGroup;
+  user!: any;
   loading = false;
+  enableSubmit = false;
 
   constructor(
     private fb: FormBuilder,
@@ -33,16 +35,21 @@ export class DadosPessoaisComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       telefone: ['', Validators.required],
       cpf: ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
-      senha: ['', [Validators.required, Validators.minLength(6)]],
     });
 
     this.userService.getUser().subscribe((res) => {
-      console.log(res);
+      this.dadosPessoaisForm.patchValue(res);
+      this.user = {
+        nome: res.nome,
+        email: res.email,
+        telefone: res.telefone,
+        cpf: res.cpf,
+      };
     });
   }
 
   onSubmit() {
-    if (this.dadosPessoaisForm?.valid) {
+    if (this.dadosPessoaisForm?.invalid) {
       this.dadosPessoaisForm.markAllAsTouched();
       return;
     }
@@ -51,22 +58,21 @@ export class DadosPessoaisComponent implements OnInit {
 
     const newUser = this.dadosPessoaisForm.value;
 
-    // Pegar id do usuário logado
+    if (JSON.stringify(this.user) == JSON.stringify(newUser)) {
+      this.toastr.error('Não foram feitas alterações ao usuário');
+      return;
+    }
 
-    // // Chamar PUT User
-    // this.userService.update(id, newUser).subscribe({
-    //   next: (res) => {
-    //     this.toastr.success('Usuário alterado com sucesso');
+    this.userService.edit(newUser).subscribe({
+      next: (res) => {
+        console.log('Subscribe');
+        this.toastr.success('Informações alteradas com sucesso :)');
+      },
+      error: (err) => {
+        this.toastr.error('Erro ao alterar usuário');
 
-    //     this.loading = false;
-    //   },
-    //   error: (err) => {
-    //     this.toastr.error('Erro ao alterar usuário');
-
-    //     console.error('Erro ao alterar dados pessoais', err);
-
-    //     this.loading = false;
-    //   },
-    // });
+        console.error('Erro ao alterar dados pessoais :(', err);
+      },
+    });
   }
 }
