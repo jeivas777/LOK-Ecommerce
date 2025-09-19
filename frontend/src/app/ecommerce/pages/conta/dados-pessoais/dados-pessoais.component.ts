@@ -19,9 +19,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class DadosPessoaisComponent implements OnInit {
   dadosPessoaisForm!: FormGroup;
-  user!: any;
   loading = false;
-  enableSubmit = false;
 
   constructor(
     private fb: FormBuilder,
